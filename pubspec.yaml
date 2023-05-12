@@ -1,0 +1,40 @@
+name: web_project
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0-86.0.dev <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+flutter:
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/dp.png
+    - assets/convert.png
+    - assets/convert2.png
+    - assets/clock.png
+    - assets/notifications.png
+    - assets/wallet.png
+    - assets/stats.png
+    - assets/earn.png
+    - assets/arrow.png
+
+
+
+  
