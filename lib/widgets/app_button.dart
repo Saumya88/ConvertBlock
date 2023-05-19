@@ -10,7 +10,8 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        width: 280,
+        width: MediaQuery.of(context).size.width / 4,
+        height: MediaQuery.of(context).size.width * 0.03,
         margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
         decoration: const BoxDecoration(
             color: AppColors.green,
