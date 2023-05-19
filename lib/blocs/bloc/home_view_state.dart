@@ -4,3 +4,5 @@ part of 'home_view_bloc.dart';
 abstract class HomeViewState {}
 
 class HomeViewInitial extends HomeViewState {}
+
+//
