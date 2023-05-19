@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_project/widgets/app_button.dart';
+import 'package:web_project/widgets/app_icon.dart';
 import 'package:web_project/widgets/bottom_navigation_bar.dart';
 import 'package:web_project/widgets/card_widget.dart';
 import 'package:web_project/widgets/navigation_bar.dart';
@@ -11,18 +12,26 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScrollController con = ScrollController();
+
     return Scaffold(
       backgroundColor: AppColors.offWhite,
       body: Column(
         children: [
-          const Expanded(
-            flex: 5,
+          Scrollbar(
+            scrollbarOrientation: ScrollbarOrientation.top,
+            controller: con,
             child: SingleChildScrollView(
-              child: Column(
+              controller: con,
+              scrollDirection: Axis.vertical,
+              child: const Column(
                 children: [
                   TopNavigationBar(),
-                  CardWidget(isVisible: false, label: 'From'),
-                  SizedBox(height: 10),
+                  CardWidget(isVisible: true, label: 'From'),
+                  CircleAvatar(
+                    child: AppIcon(iconPath: 'assets/convert.png'),
+                    backgroundColor: AppColors.white,
+                  ),
                   CardWidget(isVisible: false, label: 'To'),
                   SizedBox(height: 30),
                   AppButton(),

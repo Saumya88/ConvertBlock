@@ -5,9 +5,11 @@ import 'package:web_project/widgets/app_textfield.dart';
 class CardWidget extends StatelessWidget {
   final bool isVisible;
   final String label;
+  String? selectedCoin;
   const CardWidget({
     required this.isVisible,
     required this.label,
+    this.selectedCoin,
     super.key,
   });
 
@@ -16,12 +18,12 @@ class CardWidget extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width / 8,
-      margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.blueAccent),
+      decoration: const BoxDecoration(
+        // border: Border.all(color: Colors.blueAccent),
         color: AppColors.white,
-        borderRadius: const BorderRadius.all(
+        borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
       ),
@@ -30,19 +32,39 @@ class CardWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(label),
-              Visibility(
-                visible: isVisible,
-                child: ElevatedButton(
-                    onPressed: () {}, child: const Text('Max Amount')),
+              Expanded(child: Text(label)),
+              Expanded(
+                child: Visibility(
+                  visible: isVisible,
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: const Text('Max Amount')),
+                ),
               )
             ],
           ),
-          const AppTextField(
-              readOnly: false,
-              hint: 'Enter Text',
-              //errorText: 'something went wrong',
-              fillColor: AppColors.white)
+          Row(
+            children: [
+              const AppTextField(
+                  readOnly: false,
+                  hint: 'Enter Text',
+                  //errorText: 'something went wrong',
+                  fillColor: AppColors.white),
+              DropdownButtonFormField(
+                items: [
+                  DropdownMenuItem(
+                    child: Text('ETH'),
+                    value: 'ETH',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('BTC'),
+                    value: 'BTC',
+                  ),
+                ],
+                onChanged: (value) {},
+              ),
+            ],
+          )
         ],
       ),
     );
