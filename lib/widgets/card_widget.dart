@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_project/blocs/home_view_bloc/home_view_bloc.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_textfield.dart';
 
@@ -17,7 +19,7 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 150,
+      height: 200,
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       decoration: const BoxDecoration(
@@ -62,63 +64,130 @@ class CardWidget extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return Container(
-                          padding: EdgeInsets.all(15),
-                          child: Column(
-                            children: [
-                              Text('Search Crypto'),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFF2F2F4),
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child: Row(
+                        return BlocConsumer<HomeViewBloc, HomeViewState>(
+                          listener: (context, state) {
+                            // TODO: implement listener
+                          },
+                          builder: (context, state) {
+                            if (state is HomeViewInitial) {
+                              return Container(
+                                padding: EdgeInsets.all(15),
+                                child: Column(
                                   children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'From',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                    Text('Search Crypto'),
+                                    SizedBox(
+                                      height: 20,
                                     ),
-                                    Expanded(
-                                      child: Container(
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'To',
-                                            style: TextStyle(
-                                              color: Colors.white,
+                                    Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF2F2F4),
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'From',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                          Expanded(
+                                            child: Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'To',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
+                              );
+                            } else {
+                              return Container(
+                                padding: EdgeInsets.all(15),
+                                child: Column(
+                                  children: [
+                                    Text('Search Crypto'),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF2F2F4),
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'From',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'To',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
                         );
                       },
                     );

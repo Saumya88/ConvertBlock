@@ -18,4 +18,17 @@ class CoinModel {
     this.from,
     this.to,
   });
+
+  factory CoinModel.fromJson(Map<String, dynamic> json) {
+    return CoinModel(
+      coinSymbol: json['coinSymbol'],
+      sort: int.parse(json['sort']),
+      lockBalance: double.parse(json['lockBalance']),
+      normalBalance: double.parse(json['normalBalance']),
+      totalBalance: double.parse(json['totalBalance']),
+      withdrawBalance: double.parse(json['withdrawBalance']),
+      from: json['from'],
+      to: json['to'],
+    );
+  }
 }

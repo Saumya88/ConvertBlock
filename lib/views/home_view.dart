@@ -14,46 +14,51 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     ScrollController con = ScrollController();
 
-    return Scaffold(
-      backgroundColor: AppColors.offWhite,
-      body: Column(
-        children: [
-          Scrollbar(
-            scrollbarOrientation: ScrollbarOrientation.top,
-            controller: con,
-            child: SingleChildScrollView(
-              controller: con,
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  const TopNavigationBar(),
-                  CardWidget(
-                    isVisible: true,
-                    label: 'From',
-                    selectedCoin: 'ETH',
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.offWhite,
+        body: Container(
+          margin: EdgeInsets.fromLTRB(5, 10, 5, 5),
+          child: Column(
+            children: [
+              Scrollbar(
+                scrollbarOrientation: ScrollbarOrientation.top,
+                controller: con,
+                child: SingleChildScrollView(
+                  controller: con,
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      const TopNavigationBar(),
+                      CardWidget(
+                        isVisible: true,
+                        label: 'From',
+                        selectedCoin: 'ETH',
+                      ),
+                      const CircleAvatar(
+                        backgroundColor: AppColors.white,
+                        child: AppIcon(iconPath: 'assets/convert.png'),
+                      ),
+                      CardWidget(
+                        isVisible: false,
+                        label: 'To',
+                        selectedCoin: 'BTC',
+                      ),
+                      const SizedBox(height: 30),
+                      const AppButton(),
+                    ],
                   ),
-                  const CircleAvatar(
-                    backgroundColor: AppColors.white,
-                    child: AppIcon(iconPath: 'assets/convert.png'),
-                  ),
-                  CardWidget(
-                    isVisible: false,
-                    label: 'To',
-                    selectedCoin: 'BTC',
-                  ),
-                  const SizedBox(height: 30),
-                  const AppButton(),
-                ],
+                ),
               ),
-            ),
+              Expanded(
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  child: const BottomBar(),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              child: const BottomBar(),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
