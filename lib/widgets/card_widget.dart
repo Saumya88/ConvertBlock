@@ -23,7 +23,6 @@ class CardWidget extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       decoration: const BoxDecoration(
-        // border: Border.all(color: Colors.blueAccent),
         color: AppColors.white,
         borderRadius: BorderRadius.all(
           Radius.circular(20),

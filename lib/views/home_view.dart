@@ -19,44 +19,34 @@ class HomeView extends StatelessWidget {
         backgroundColor: AppColors.offWhite,
         body: Container(
           margin: EdgeInsets.fromLTRB(5, 10, 5, 5),
-          child: Column(
-            children: [
-              Scrollbar(
-                scrollbarOrientation: ScrollbarOrientation.top,
-                controller: con,
-                child: SingleChildScrollView(
-                  controller: con,
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      const TopNavigationBar(),
-                      CardWidget(
-                        isVisible: true,
-                        label: 'From',
-                        selectedCoin: 'ETH',
-                      ),
-                      const CircleAvatar(
-                        backgroundColor: AppColors.white,
-                        child: AppIcon(iconPath: 'assets/convert.png'),
-                      ),
-                      CardWidget(
-                        isVisible: false,
-                        label: 'To',
-                        selectedCoin: 'BTC',
-                      ),
-                      const SizedBox(height: 30),
-                      const AppButton(),
-                    ],
-                  ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const TopNavigationBar(),
+                const SizedBox(height: 20),
+                CardWidget(
+                  isVisible: true,
+                  label: 'From',
+                  selectedCoin: 'ETH',
                 ),
-              ),
-              Expanded(
-                child: Container(
+                const CircleAvatar(
+                  backgroundColor: AppColors.white,
+                  child: AppIcon(iconPath: 'assets/convert.png'),
+                ),
+                CardWidget(
+                  isVisible: false,
+                  label: 'To',
+                  selectedCoin: 'BTC',
+                ),
+                const SizedBox(height: 40),
+                const AppButton(),
+                SizedBox(height: 100),
+                Container(
                   alignment: Alignment.bottomCenter,
                   child: const BottomBar(),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
