@@ -5,4 +5,6 @@ abstract class HomeViewState {}
 
 class HomeViewInitial extends HomeViewState {}
 
-//
+class SwitchCryptoSection extends HomeViewState {
+  String? selectedSection = 'From';
+}

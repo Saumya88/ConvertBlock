@@ -6,7 +6,7 @@ class CardWidget extends StatelessWidget {
   final bool isVisible;
   final String label;
   String? selectedCoin;
-  const CardWidget({
+  CardWidget({
     required this.isVisible,
     required this.label,
     this.selectedCoin,
@@ -17,7 +17,7 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.width / 8,
+      height: 150,
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       decoration: const BoxDecoration(
@@ -37,33 +37,114 @@ class CardWidget extends StatelessWidget {
                 child: Visibility(
                   visible: isVisible,
                   child: Align(
-                      alignment: Alignment.topRight,
-                      child: const Text('Max Amount')),
+                    alignment: Alignment.topRight,
+                    child: const Text('Max Amount'),
+                  ),
                 ),
               )
             ],
           ),
-          Row(
-            children: [
-              const AppTextField(
+          SizedBox(
+            height: 20,
+          ),
+          Flexible(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const AppTextField(
                   readOnly: false,
                   hint: 'Enter Text',
                   //errorText: 'something went wrong',
-                  fillColor: AppColors.white),
-              DropdownButtonFormField(
-                items: [
-                  DropdownMenuItem(
-                    child: Text('ETH'),
-                    value: 'ETH',
+                  fillColor: AppColors.white,
+                ),
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          padding: EdgeInsets.all(15),
+                          child: Column(
+                            children: [
+                              Text('Search Crypto'),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF2F2F4),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'From',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'To',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.blueAccent,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        selectedCoin!,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Icon(Icons.keyboard_arrow_down_rounded),
+                    ],
                   ),
-                  DropdownMenuItem(
-                    child: Text('BTC'),
-                    value: 'BTC',
-                  ),
-                ],
-                onChanged: (value) {},
-              ),
-            ],
+                ),
+              ],
+            ),
           )
         ],
       ),

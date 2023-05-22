@@ -21,7 +21,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width / 4,
+      width: 200,
       child: TextField(
         style: const TextStyle(
           letterSpacing: -0.3,
@@ -34,7 +34,7 @@ class AppTextField extends StatelessWidget {
         enabled: !readOnly,
         decoration: InputDecoration(
           isDense: true,
-          contentPadding: contentPadding,
+          // contentPadding: contentPadding,
           hintText: hint,
           errorText: errorText,
           hintStyle: const TextStyle(
@@ -44,6 +44,11 @@ class AppTextField extends StatelessWidget {
           filled: true,
           fillColor: fillColor,
           border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          focusedErrorBorder: InputBorder.none,
         ),
         obscuringCharacter: '*',
       ),

@@ -24,17 +24,25 @@ class HomeView extends StatelessWidget {
             child: SingleChildScrollView(
               controller: con,
               scrollDirection: Axis.vertical,
-              child: const Column(
+              child: Column(
                 children: [
-                  TopNavigationBar(),
-                  CardWidget(isVisible: true, label: 'From'),
-                  CircleAvatar(
-                    child: AppIcon(iconPath: 'assets/convert.png'),
-                    backgroundColor: AppColors.white,
+                  const TopNavigationBar(),
+                  CardWidget(
+                    isVisible: true,
+                    label: 'From',
+                    selectedCoin: 'ETH',
                   ),
-                  CardWidget(isVisible: false, label: 'To'),
-                  SizedBox(height: 30),
-                  AppButton(),
+                  const CircleAvatar(
+                    backgroundColor: AppColors.white,
+                    child: AppIcon(iconPath: 'assets/convert.png'),
+                  ),
+                  CardWidget(
+                    isVisible: false,
+                    label: 'To',
+                    selectedCoin: 'BTC',
+                  ),
+                  const SizedBox(height: 30),
+                  const AppButton(),
                 ],
               ),
             ),
