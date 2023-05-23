@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_project/blocs/home_view_bloc/home_view_bloc.dart';
+import 'package:web_project/models/coin_model_data.dart';
 import 'package:web_project/utilities/colors.dart';
+import 'package:web_project/widgets/app_icon.dart';
 import 'package:web_project/widgets/app_textfield.dart';
+
+final List<CryptoCoin> _cryptoCoins = <CryptoCoin>[
+  const CryptoCoin(
+      coinSymbol: 'BTC',
+      coinName: 'Bitcoin',
+      coinImageUrl: 'assets/coins/BTC.png'),
+  const CryptoCoin(
+      coinSymbol: 'LTC',
+      coinName: 'Litecoin',
+      coinImageUrl: 'assets/coins/LTC.png'),
+  const CryptoCoin(
+      coinSymbol: 'ADA',
+      coinName: 'Cardano',
+      coinImageUrl: 'assets/coins/ADA.png'),
+  const CryptoCoin(
+      coinSymbol: 'ENJ',
+      coinName: 'Enjin',
+      coinImageUrl: 'assets/coins/ENJ.png'),
+  const CryptoCoin(
+      coinSymbol: 'SOL',
+      coinName: 'Solano',
+      coinImageUrl: 'assets/coins/SOL.png'),
+];
 
 class CardWidget extends StatelessWidget {
   final bool isVisible;
@@ -37,15 +62,15 @@ class CardWidget extends StatelessWidget {
               Expanded(
                 child: Visibility(
                   visible: isVisible,
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.topRight,
-                    child: const Text('Max Amount'),
+                    child: Text('Max Amount'),
                   ),
                 ),
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Flexible(
@@ -61,159 +86,205 @@ class CardWidget extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return BlocConsumer<HomeViewBloc, HomeViewState>(
-                          listener: (context, state) {
-                            // TODO: implement listener
-                          },
-                          builder: (context, state) {
-                            if (state is HomeViewInitial) {
-                              return Container(
-                                padding: EdgeInsets.all(15),
-                                child: Column(
-                                  children: [
-                                    Text('Search Crypto'),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFF2F2F4),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color: Colors.black,
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'From',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color: Colors.black,
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'To',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              return Container(
-                                padding: EdgeInsets.all(15),
-                                child: Column(
-                                  children: [
-                                    Text('Search Crypto'),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFF2F2F4),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color: Colors.black,
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'From',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'To',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          },
-                        );
-                      },
-                    );
+                        context: context,
+                        builder: (context) {
+                          return ListView.builder(
+                              itemCount: _cryptoCoins.length,
+                              itemBuilder: _cryptoCoinBuilder);
+                          // return Container(
+                          //   margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          //   height: MediaQuery.of(context).size.height,
+                          //   width: MediaQuery.of(context).size.width,
+                          //   child: Column(
+                          //       children: [Text("Search Crypto")],
+                          //       ListView.builder(
+                          //           itemCount: _cryptoCoins.length,
+                          //           itemBuilder: _cryptoCoinBuilder)),
+                          // );
+                        });
                   },
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.blueAccent,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
                         selectedCoin!,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      Icon(Icons.keyboard_arrow_down_rounded),
+                      const Icon(Icons.keyboard_arrow_down_rounded),
                     ],
                   ),
                 ),
               ],
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Future<dynamic> showBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return BlocConsumer<HomeViewBloc, HomeViewState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            if (state is HomeViewInitial) {
+              return Container(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    const Text('Search Crypto'),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF2F2F4),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'From',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'To',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return Container(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    const Text('Search Crypto'),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF2F2F4),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'From',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'To',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+
+  Widget _cryptoCoinBuilder(BuildContext context, int index) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      child: Row(
+        children: [
+          CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.black,
+              child: AppIcon(iconPath: _cryptoCoins[index].coinImageUrl)),
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            children: [
+              Text(
+                _cryptoCoins[index].coinSymbol,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                _cryptoCoins[index].coinName,
+                style: TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
         ],
       ),
     );
