@@ -11,8 +11,8 @@ class AppIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 35,
-      width: 35,
+      height: 45,
+      width: 45,
       child: Image.asset(iconPath),
     );
   }

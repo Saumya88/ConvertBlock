@@ -14,6 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.2
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +24,19 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  fonts:
+    - family: Poppins_Light
+      fonts:
+        - asset: fonts/Poppins-Light.ttf
+    - family: Poppins-Regular
+      fonts:
+        - asset: fonts/Poppins-Regular.ttf
+    - family: Poppins-Bold
+      fonts:
+        - asset: fonts/Poppins-Bold.ttf
+    - family: Poppins-Medium
+      fonts:
+        - asset: fonts/Poppins-Medium.ttf
 
   # To add assets to your application, add an assets section, like this:
   assets:
@@ -35,6 +49,7 @@ flutter:
     - assets/stats.png
     - assets/earn.png
     - assets/arrow.png
+    - assets/coins/
 
 
 

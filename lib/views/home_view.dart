@@ -14,38 +14,28 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     ScrollController con = ScrollController();
 
-    return Scaffold(
-      backgroundColor: AppColors.offWhite,
-      body: Column(
-        children: [
-          Scrollbar(
-            scrollbarOrientation: ScrollbarOrientation.top,
-            controller: con,
-            child: SingleChildScrollView(
-              controller: con,
-              scrollDirection: Axis.vertical,
-              child: const Column(
-                children: [
-                  TopNavigationBar(),
-                  CardWidget(isVisible: true, label: 'From'),
-                  CircleAvatar(
-                    child: AppIcon(iconPath: 'assets/convert.png'),
-                    backgroundColor: AppColors.white,
-                  ),
-                  CardWidget(isVisible: false, label: 'To'),
-                  SizedBox(height: 30),
-                  AppButton(),
-                ],
-              ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.offWhite,
+        body: Container(
+          margin: const EdgeInsets.fromLTRB(5, 10, 5, 5),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const TopNavigationBar(),
+                const SizedBox(height: 20),
+                const CardWidget(),
+                const SizedBox(height: 40),
+                const AppButton(),
+                const SizedBox(height: 100),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: const BottomBar(),
+                ),
+              ],
             ),
           ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              child: const BottomBar(),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
