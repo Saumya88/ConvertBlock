@@ -27,7 +27,7 @@ class HomeView extends StatelessWidget {
                 CardWidget(
                   isVisible: true,
                   label: 'From',
-                  selectedCoin: 'ETH',
+                  selectedCoin: 'BTC',
                 ),
                 const CircleAvatar(
                   backgroundColor: AppColors.white,
