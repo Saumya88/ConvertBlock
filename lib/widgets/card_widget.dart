@@ -10,23 +10,28 @@ final List<CryptoCoin> _cryptoCoins = <CryptoCoin>[
   const CryptoCoin(
       coinSymbol: 'BTC',
       coinName: 'Bitcoin',
-      coinImageUrl: 'assets/coins/BTC.png'),
+      coinImageUrl: 'assets/coins/BTC.png',
+      circleAvatarColor: AppColors.btcColor),
   const CryptoCoin(
       coinSymbol: 'LTC',
       coinName: 'Litecoin',
-      coinImageUrl: 'assets/coins/LTC.png'),
+      coinImageUrl: 'assets/coins/LTC.png',
+      circleAvatarColor: AppColors.ltcColor),
   const CryptoCoin(
       coinSymbol: 'ADA',
       coinName: 'Cardano',
-      coinImageUrl: 'assets/coins/ADA.png'),
+      coinImageUrl: 'assets/coins/ADA.png',
+      circleAvatarColor: AppColors.adaColor),
   const CryptoCoin(
       coinSymbol: 'ENJ',
       coinName: 'Enjin',
-      coinImageUrl: 'assets/coins/ENJ.png'),
+      coinImageUrl: 'assets/coins/ENJ.png',
+      circleAvatarColor: AppColors.enjColor),
   const CryptoCoin(
       coinSymbol: 'SOL',
       coinName: 'Solano',
-      coinImageUrl: 'assets/coins/SOL.png'),
+      coinImageUrl: 'assets/coins/SOL.png',
+      circleAvatarColor: AppColors.solColor),
 ];
 
 class CardWidget extends StatelessWidget {
@@ -267,7 +272,7 @@ class CardWidget extends StatelessWidget {
         children: [
           CircleAvatar(
               radius: 30,
-              backgroundColor: Colors.black,
+              backgroundColor: _cryptoCoins[index].circleAvatarColor,
               child: AppIcon(iconPath: _cryptoCoins[index].coinImageUrl)),
           SizedBox(
             width: 10,
