@@ -22,7 +22,10 @@ class AppButton extends StatelessWidget {
             Text(
               'Preview Conversion',
               style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.w700, letterSpacing: 1),
+                  fontFamily: 'Poppins-Bold',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1),
             ),
             AppIcon(iconPath: 'assets/arrow.png')
           ],
