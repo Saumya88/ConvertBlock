@@ -282,7 +282,7 @@ class _CryptoCardState extends State<CryptoCard> {
                   coinIsSelected = !coinIsSelected;
                   widget.selectedCoin = _availableCryptoCoins[index];
                   widget.searchBarController.text = "";
-                  print(widget.selectedCoin.coinSymbol);
+                  //print(widget.selectedCoin.coinSymbol);
                   print(coinIsSelected);
                   Navigator.pop(context);
                 });
@@ -316,7 +316,8 @@ class _CryptoCardState extends State<CryptoCard> {
             ),
           ),
           Visibility(
-            visible: coinIsSelected,
+            visible: widget.selectedCoin.coinSymbol ==
+                _availableCryptoCoins[index].coinSymbol,
             child: const Expanded(
               child: Align(
                   alignment: Alignment.centerRight,
