@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:web_project/models/coin_model_data.dart';
+import 'package:web_project/models/coin_model.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
 import 'package:web_project/widgets/app_textfield.dart';
 
-List<CryptoCoin> _availableCryptoCoins = [];
+List<CoinModel> _availableCryptoCoins = [];
 
 // ignore: must_be_immutable
 class CryptoCard extends StatefulWidget {
@@ -17,13 +17,13 @@ class CryptoCard extends StatefulWidget {
       required this.onTapDropDown,
       required this.allCoins,
       super.key});
-  CryptoCoin selectedCoin;
+  CoinModel selectedCoin;
   String label;
   TextEditingController textFieldController;
   TextEditingController searchBarController;
   bool isVisible;
   void Function() onTapDropDown;
-  List<CryptoCoin> allCoins;
+  List<CoinModel> allCoins;
 
   @override
   State<CryptoCard> createState() => _CryptoCardState();
@@ -38,12 +38,12 @@ class _CryptoCardState extends State<CryptoCard> {
   }
 
   void _runFilter(String enteredKeyboard) {
-    List<CryptoCoin> cryptoResults = [];
+    List<CoinModel> cryptoResults = [];
     if (enteredKeyboard.isEmpty) {
       cryptoResults = widget.allCoins;
     } else {
       cryptoResults = widget.allCoins
-          .where((coin) => coin.coinSymbol
+          .where((coin) => coin.coinSymbol!
               .toLowerCase()
               .contains(enteredKeyboard.toLowerCase()))
           .toList();
@@ -126,12 +126,14 @@ class _CryptoCardState extends State<CryptoCard> {
                     children: [
                       CircleAvatar(
                         radius: 20,
-                        backgroundColor: widget.selectedCoin.circleAvatarColor,
-                        child:
-                            AppIcon(iconPath: widget.selectedCoin.coinImageUrl),
+                        backgroundColor: Colors.white,
+                        child: AppIcon(
+                          //
+                          iconPath: 'assets/coins/BTC.png',
+                        ),
                       ),
                       const SizedBox(width: 10),
-                      Text(widget.selectedCoin.coinSymbol,
+                      Text(widget.selectedCoin.coinSymbol!,
                           style: const TextStyle(
                             fontFamily: 'Poppins-Regular',
                             fontSize: 20,
@@ -349,20 +351,21 @@ class _CryptoCardState extends State<CryptoCard> {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundColor:
-                        _availableCryptoCoins[index].circleAvatarColor,
+                    backgroundColor: Colors.white,
                     child: AppIcon(
-                        iconPath: _availableCryptoCoins[index].coinImageUrl),
+                      iconPath: 'assets/coins/LTC.png',
+                      // iconPath: _availableCryptoCoins[index].coinImageUrl!
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Column(
                     children: [
-                      Text(_availableCryptoCoins[index].coinSymbol,
+                      Text(_availableCryptoCoins[index].coinSymbol!,
                           style: const TextStyle(
                               fontFamily: 'Poppins-Bold',
                               fontSize: 16,
                               fontWeight: FontWeight.w700)),
-                      Text(_availableCryptoCoins[index].coinName,
+                      Text(_availableCryptoCoins[index].coinFullName!,
                           style: const TextStyle(
                               fontFamily: 'Poppins-Regular',
                               fontSize: 12,

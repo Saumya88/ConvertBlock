@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_project/blocs/search_crypto/search_crypto_bloc.dart';
+import 'package:web_project/models/coin_model.dart';
 import 'package:web_project/models/coin_model_data.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
@@ -77,7 +78,7 @@ class _ConvertBlockState extends State<ConvertBlock> {
                 return _buildLoading();
               } else if (state is SearchCryptoLoaded) {
                 print(state.coinModel[0].coinFullName);
-                return _buildConverterBlock();
+                return _buildConverterBlock(state.coinModel);
               } else {
                 return const Center(child: Text("Doodle"));
               }
@@ -89,7 +90,7 @@ class _ConvertBlockState extends State<ConvertBlock> {
   }
 
   Widget _buildLoading() => const Center(child: CircularProgressIndicator());
-  Column _buildConverterBlock() {
+  Column _buildConverterBlock(List<CoinModel> cryptoCoins) {
     return Column(
       children: [
         CryptoCard(
@@ -97,8 +98,8 @@ class _ConvertBlockState extends State<ConvertBlock> {
             searchBarController: _searchController,
             isVisible: true,
             label: "From",
-            selectedCoin: _selectedCoin1,
-            allCoins: _cryptoCoins,
+            selectedCoin: cryptoCoins[0],
+            allCoins: cryptoCoins,
             onTapDropDown: () {
               setState(() {});
             }),
@@ -118,8 +119,8 @@ class _ConvertBlockState extends State<ConvertBlock> {
             textFieldController: _controller2,
             isVisible: false,
             label: "To",
-            selectedCoin: _selectedCoin2,
-            allCoins: _cryptoCoins,
+            selectedCoin: cryptoCoins[1],
+            allCoins: cryptoCoins,
             onTapDropDown: () {
               setState(() {});
             }),
