@@ -77,7 +77,7 @@ class _ConvertBlockState extends State<ConvertBlock> {
               if (state is SearchCryptoLoading) {
                 return _buildLoading();
               } else if (state is SearchCryptoLoaded) {
-                print(state.coinModel[0].coinFullName);
+                print(state.coinModel[0].coinSymbol);
                 return _buildConverterBlock(state.coinModel);
               } else {
                 return const Center(child: Text("Doodle"));

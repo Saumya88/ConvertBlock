@@ -124,14 +124,7 @@ class _CryptoCardState extends State<CryptoCard> {
                   },
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.white,
-                        child: AppIcon(
-                          //
-                          iconPath: 'assets/coins/BTC.png',
-                        ),
-                      ),
+                      Image.network(widget.selectedCoin.coinImageUrl!),
                       const SizedBox(width: 10),
                       Text(widget.selectedCoin.coinSymbol!,
                           style: const TextStyle(
@@ -349,29 +342,13 @@ class _CryptoCardState extends State<CryptoCard> {
               },
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.white,
-                    child: AppIcon(
-                      iconPath: 'assets/coins/LTC.png',
-                      // iconPath: _availableCryptoCoins[index].coinImageUrl!
-                    ),
-                  ),
+                  Image.network(_availableCryptoCoins[index].coinImageUrl!),
                   const SizedBox(width: 16),
-                  Column(
-                    children: [
-                      Text(_availableCryptoCoins[index].coinSymbol!,
-                          style: const TextStyle(
-                              fontFamily: 'Poppins-Bold',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700)),
-                      Text(_availableCryptoCoins[index].coinFullName!,
-                          style: const TextStyle(
-                              fontFamily: 'Poppins-Regular',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500)),
-                    ],
-                  ),
+                  Text(_availableCryptoCoins[index].coinSymbol!,
+                      style: const TextStyle(
+                          fontFamily: 'Poppins-Bold',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700)),
                 ],
               ),
             ),
