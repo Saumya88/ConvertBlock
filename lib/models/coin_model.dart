@@ -1,13 +1,23 @@
 class CoinModel {
-  String? coinName;
-  String? coinSymbolImage;
+  String? coinSymbol;
+  String? coinFullName;
+  String? coinImageUrl;
+  double? priceInUSD;
+  int? isCryptoCurrency;
 
-  CoinModel({this.coinName, this.coinSymbolImage});
+  CoinModel(
+      {this.coinImageUrl,
+      this.coinSymbol,
+      this.coinFullName,
+      this.priceInUSD,
+      this.isCryptoCurrency});
 
   factory CoinModel.fromJson(Map<String, dynamic> json) {
     return CoinModel(
-      coinName: json['coinName'],
-      coinSymbolImage: json['coinSymbolImage'],
-    );
+        coinSymbol: json['asset_id'],
+        coinImageUrl: json['coinSymbolImage'],
+        coinFullName: json['name'],
+        priceInUSD: json['price_usd'],
+        isCryptoCurrency: json['type_is_crypto']);
   }
 }

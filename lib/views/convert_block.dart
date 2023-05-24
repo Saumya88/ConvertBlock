@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_project/blocs/search_crypto/search_crypto_bloc.dart';
 import 'package:web_project/models/coin_model_data.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
@@ -46,10 +48,49 @@ class ConvertBlock extends StatefulWidget {
 }
 
 class _ConvertBlockState extends State<ConvertBlock> {
+  final SearchCryptoBloc _searchCryptoBloc = SearchCryptoBloc();
+  @override
+  void initState() {
+    _searchCryptoBloc.add(GetCoinList());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Column(
+        child: Container(
+      child: BlocProvider(
+        create: (context) => _searchCryptoBloc,
+        child: BlocListener<SearchCryptoBloc, SearchCryptoState>(
+          listener: (context, state) {
+            if (state is SearchCryptoError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message!),
+                ),
+              );
+            }
+          },
+          child: BlocBuilder<SearchCryptoBloc, SearchCryptoState>(
+            builder: (context, state) {
+              if (state is SearchCryptoLoading) {
+                return _buildLoading();
+              } else if (state is SearchCryptoLoaded) {
+                print(state.coinModel[0].coinFullName);
+                return _buildConverterBlock();
+              } else {
+                return const Center(child: Text("Doodle"));
+              }
+            },
+          ),
+        ),
+      ),
+    ));
+  }
+
+  Widget _buildLoading() => const Center(child: CircularProgressIndicator());
+  Column _buildConverterBlock() {
+    return Column(
       children: [
         CryptoCard(
             textFieldController: _controller1,
@@ -83,6 +124,6 @@ class _ConvertBlockState extends State<ConvertBlock> {
               setState(() {});
             }),
       ],
-    ));
+    );
   }
 }

@@ -4,15 +4,17 @@ import 'package:http/http.dart' as http;
 import 'package:web_project/models/coin_model.dart';
 
 class CryptoService {
-  //todo chnage base url
-  final String baseUrl = 'rest.coinapi.io/v1/';
-  Future<List> getAllCoins() async {
-    final uri = Uri.https(baseUrl, 'assets');
+  final String baseUrl = 'rest.coinapi.io';
+
+  Future<List<CoinModel>> getAllCoins() async {
+    final uri = Uri.https(baseUrl, '/v1/assets');
     final response = await http.get(uri,
-        headers: {'X-CoinAPI-Key': '1A086DEF-566A-4B24-A84C-34DB21BC84B3'});
+        headers: {'X-CoinAPI-Key': '53D58867-46B7-43B1-95CB-3CD1F4C14B4A'});
     if (response.statusCode >= 200 && response.statusCode < 205) {
       List<Map<String, dynamic>> data =
           List<Map<String, dynamic>>.from(jsonDecode(response.body) as List);
+      print("hello I am here");
+      print(data);
       data = data
           .where((jsonData) => jsonData["type_is_crypto"] == 1)
           .toList(); //filtering crypto currency data
