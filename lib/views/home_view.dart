@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_project/widgets/app_button.dart';
-import 'package:web_project/widgets/app_icon.dart';
+
 import 'package:web_project/widgets/bottom_navigation_bar.dart';
 import 'package:web_project/widgets/card_widget.dart';
 import 'package:web_project/widgets/navigation_bar.dart';
@@ -12,8 +12,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController con = ScrollController();
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.offWhite,
