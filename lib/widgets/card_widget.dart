@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_project/blocs/home_view_bloc/home_view_bloc.dart';
+
 import 'package:web_project/models/coin_model_data.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
@@ -33,12 +32,14 @@ final List<CryptoCoin> _cryptoCoins = <CryptoCoin>[
       coinImageUrl: 'assets/coins/SOL.png',
       circleAvatarColor: AppColors.solColor),
 ];
-
 TextEditingController _controller1 = TextEditingController();
 TextEditingController _controller2 = TextEditingController();
+TextEditingController _searchController = TextEditingController();
 
 CryptoCoin _selectedCoin1 = _cryptoCoins[0];
 CryptoCoin _selectedCoin2 = _cryptoCoins[2];
+
+List<CryptoCoin> _availableCryptoCoins = [];
 
 class CardWidget extends StatefulWidget {
   const CardWidget({
@@ -50,6 +51,28 @@ class CardWidget extends StatefulWidget {
 }
 
 class _CardWidgetState extends State<CardWidget> {
+  @override
+  void initState() {
+    _availableCryptoCoins = _cryptoCoins;
+    super.initState();
+  }
+
+  void _runFilter(String enteredKeyboard) {
+    List<CryptoCoin> cryptoResults = [];
+    if (enteredKeyboard.isEmpty) {
+      cryptoResults = _cryptoCoins;
+    } else {
+      cryptoResults = _cryptoCoins
+          .where((coin) => coin.coinSymbol
+              .toLowerCase()
+              .contains(enteredKeyboard.toLowerCase()))
+          .toList();
+    }
+    setState(() {
+      _availableCryptoCoins = cryptoResults;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -76,8 +99,13 @@ class _CardWidgetState extends State<CardWidget> {
     );
   }
 
-  Container createCardWidget(BuildContext context, CryptoCoin selectedCoin,
-      String label, TextEditingController ctrl, bool isVisible) {
+  Container createCardWidget(
+    BuildContext context,
+    CryptoCoin selectedCoin,
+    String label,
+    TextEditingController ctrl,
+    bool isVisible,
+  ) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 180,
@@ -172,6 +200,7 @@ class _CardWidgetState extends State<CardWidget> {
   }
 
   Future<dynamic> createSearchScreen(BuildContext context) {
+    _runFilter("");
     List<bool> _selections = [true, false];
     return showModalBottomSheet(
         useSafeArea: true,
@@ -184,6 +213,17 @@ class _CardWidgetState extends State<CardWidget> {
             height: MediaQuery.of(context).size.height * 0.8,
             child: Column(
               children: [
+                InkWell(
+                    onTap: () {
+                      _searchController.text = "";
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 19),
+                      width: MediaQuery.of(context).size.height * 0.5,
+                      child:
+                          Center(child: Image.asset('assets/coins/rect.png')),
+                    )),
                 const Text('Search Crypto',
                     style: TextStyle(
                         fontFamily: 'Poppins-Regular',
@@ -235,12 +275,20 @@ class _CardWidgetState extends State<CardWidget> {
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 8),
-                  child: TextField(
+                  child: TextFormField(
+                    controller: _searchController,
+                    keyboardType: TextInputType.name,
+                    onChanged: (value) => _runFilter(value),
+                    // onTapOutside: (event) => _runFilter(""),
+                    // onTap: () {
+                    //   _runFilter(_searchController.text);
+                    // },
                     decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 15),
                         hintText: "Search crypto assets",
-                        suffixIcon: const Icon(Icons.search),
+                        suffixIcon: IconButton(
+                            onPressed: () {}, icon: const Icon(Icons.search)),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: const BorderSide())),
@@ -257,10 +305,12 @@ class _CardWidgetState extends State<CardWidget> {
                 ),
                 const SizedBox(height: 10),
                 Flexible(
-                  child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: _cryptoCoins.length,
-                      itemBuilder: _cryptoCoinBuilder),
+                  child: _availableCryptoCoins.isNotEmpty
+                      ? ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: _availableCryptoCoins.length,
+                          itemBuilder: _cryptoCoinBuilder)
+                      : const Text("No crypto coin found"),
                 ),
               ],
             ),
@@ -269,30 +319,58 @@ class _CardWidgetState extends State<CardWidget> {
   }
 
   Widget _cryptoCoinBuilder(BuildContext context, int index) {
+    bool coinIsSelected = false;
     return Container(
       margin: const EdgeInsets.all(10),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: _cryptoCoins[index].circleAvatarColor,
-            child: AppIcon(iconPath: _cryptoCoins[index].coinImageUrl),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  coinIsSelected = !coinIsSelected;
+                  _selectedCoin1 = _availableCryptoCoins[index];
+                  print(_selectedCoin1.coinSymbol);
+                  print(coinIsSelected);
+                  Navigator.pop(context);
+                });
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor:
+                        _availableCryptoCoins[index].circleAvatarColor,
+                    child: AppIcon(
+                        iconPath: _availableCryptoCoins[index].coinImageUrl),
+                  ),
+                  const SizedBox(width: 16),
+                  Column(
+                    children: [
+                      Text(_availableCryptoCoins[index].coinSymbol,
+                          style: const TextStyle(
+                              fontFamily: 'Poppins-Bold',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700)),
+                      Text(_availableCryptoCoins[index].coinName,
+                          style: const TextStyle(
+                              fontFamily: 'Poppins-Regular',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-          const SizedBox(width: 16),
-          Column(
-            children: [
-              Text(_cryptoCoins[index].coinSymbol,
-                  style: const TextStyle(
-                      fontFamily: 'Poppins-Bold',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700)),
-              Text(_cryptoCoins[index].coinName,
-                  style: const TextStyle(
-                      fontFamily: 'Poppins-Regular',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500)),
-            ],
-          ),
+          Visibility(
+            visible: coinIsSelected,
+            child: const Expanded(
+              child: Align(
+                  alignment: Alignment.centerRight,
+                  child: AppIcon(iconPath: 'assets/coins/tick.png')),
+            ),
+          )
         ],
       ),
     );
