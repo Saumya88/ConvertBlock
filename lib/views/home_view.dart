@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:web_project/views/convert_block.dart';
 import 'package:web_project/widgets/app_button.dart';
-
 import 'package:web_project/widgets/bottom_navigation_bar.dart';
-import 'package:web_project/widgets/card_widget.dart';
 import 'package:web_project/widgets/navigation_bar.dart';
-
 import '../utilities/colors.dart';
 
 class HomeView extends StatelessWidget {
@@ -22,7 +20,7 @@ class HomeView extends StatelessWidget {
               children: [
                 const TopNavigationBar(),
                 const SizedBox(height: 20),
-                const CardWidget(),
+                const ConvertBlock(),
                 const SizedBox(height: 40),
                 const AppButton(),
                 const SizedBox(height: 100),

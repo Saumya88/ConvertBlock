@@ -1,68 +1,47 @@
 import 'package:flutter/material.dart';
-
 import 'package:web_project/models/coin_model_data.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
 import 'package:web_project/widgets/app_textfield.dart';
 
-final List<CryptoCoin> _cryptoCoins = <CryptoCoin>[
-  const CryptoCoin(
-      coinSymbol: 'BTC',
-      coinName: 'Bitcoin',
-      coinImageUrl: 'assets/coins/BTC.png',
-      circleAvatarColor: AppColors.btcColor),
-  const CryptoCoin(
-      coinSymbol: 'LTC',
-      coinName: 'Litecoin',
-      coinImageUrl: 'assets/coins/LTC.png',
-      circleAvatarColor: AppColors.ltcColor),
-  const CryptoCoin(
-      coinSymbol: 'ADA',
-      coinName: 'Cardano',
-      coinImageUrl: 'assets/coins/ADA.png',
-      circleAvatarColor: AppColors.adaColor),
-  const CryptoCoin(
-      coinSymbol: 'ENJ',
-      coinName: 'Enjin',
-      coinImageUrl: 'assets/coins/ENJ.png',
-      circleAvatarColor: AppColors.enjColor),
-  const CryptoCoin(
-      coinSymbol: 'SOL',
-      coinName: 'Solano',
-      coinImageUrl: 'assets/coins/SOL.png',
-      circleAvatarColor: AppColors.solColor),
-];
-TextEditingController _controller1 = TextEditingController();
-TextEditingController _controller2 = TextEditingController();
-TextEditingController _searchController = TextEditingController();
-
-CryptoCoin _selectedCoin1 = _cryptoCoins[0];
-CryptoCoin _selectedCoin2 = _cryptoCoins[2];
-
 List<CryptoCoin> _availableCryptoCoins = [];
 
-class CardWidget extends StatefulWidget {
-  const CardWidget({
-    super.key,
-  });
+// ignore: must_be_immutable
+class CryptoCard extends StatefulWidget {
+  CryptoCard(
+      {required this.textFieldController,
+      required this.searchBarController,
+      required this.isVisible,
+      required this.label,
+      required this.selectedCoin,
+      required this.onTapDropDown,
+      required this.allCoins,
+      super.key});
+  CryptoCoin selectedCoin;
+  String label;
+  TextEditingController textFieldController;
+  TextEditingController searchBarController;
+  bool isVisible;
+  void Function() onTapDropDown;
+  List<CryptoCoin> allCoins;
 
   @override
-  State<CardWidget> createState() => _CardWidgetState();
+  State<CryptoCard> createState() => _CryptoCardState();
 }
 
-class _CardWidgetState extends State<CardWidget> {
+class _CryptoCardState extends State<CryptoCard> {
   @override
   void initState() {
-    _availableCryptoCoins = _cryptoCoins;
+    _availableCryptoCoins = widget.allCoins;
     super.initState();
   }
 
   void _runFilter(String enteredKeyboard) {
     List<CryptoCoin> cryptoResults = [];
     if (enteredKeyboard.isEmpty) {
-      cryptoResults = _cryptoCoins;
+      cryptoResults = widget.allCoins;
     } else {
-      cryptoResults = _cryptoCoins
+      cryptoResults = widget.allCoins
           .where((coin) => coin.coinSymbol
               .toLowerCase()
               .contains(enteredKeyboard.toLowerCase()))
@@ -75,37 +54,6 @@ class _CardWidgetState extends State<CardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        createCardWidget(context, _selectedCoin1, "From", _controller1, true),
-        InkWell(
-          onTap: () {
-            setState(() {
-              String temp = _controller1.text;
-              _controller1.text = _controller2.text;
-              _controller2.text = temp;
-              CryptoCoin tempCoin = _selectedCoin1;
-              _selectedCoin1 = _selectedCoin2;
-              _selectedCoin2 = tempCoin;
-            });
-          },
-          child: const CircleAvatar(
-            backgroundColor: AppColors.white,
-            child: AppIcon(iconPath: 'assets/convert.png'),
-          ),
-        ),
-        createCardWidget(context, _selectedCoin2, "To", _controller2, false),
-      ],
-    );
-  }
-
-  Container createCardWidget(
-    BuildContext context,
-    CryptoCoin selectedCoin,
-    String label,
-    TextEditingController ctrl,
-    bool isVisible,
-  ) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 180,
@@ -124,7 +72,7 @@ class _CardWidgetState extends State<CardWidget> {
             children: [
               Expanded(
                   child: Text(
-                label,
+                widget.label,
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -132,7 +80,7 @@ class _CardWidgetState extends State<CardWidget> {
               )),
               Expanded(
                   child: Visibility(
-                      visible: isVisible,
+                      visible: widget.isVisible,
                       child: Align(
                         alignment: Alignment.topRight,
                         child: Container(
@@ -166,7 +114,7 @@ class _CardWidgetState extends State<CardWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppTextField(
-                  controller: ctrl,
+                  controller: widget.textFieldController,
                   hint: 'Enter amount',
                 ),
                 InkWell(
@@ -177,11 +125,12 @@ class _CardWidgetState extends State<CardWidget> {
                     children: [
                       CircleAvatar(
                         radius: 20,
-                        backgroundColor: selectedCoin.circleAvatarColor,
-                        child: AppIcon(iconPath: selectedCoin.coinImageUrl),
+                        backgroundColor: widget.selectedCoin.circleAvatarColor,
+                        child:
+                            AppIcon(iconPath: widget.selectedCoin.coinImageUrl),
                       ),
                       const SizedBox(width: 10),
-                      Text(selectedCoin.coinSymbol,
+                      Text(widget.selectedCoin.coinSymbol,
                           style: const TextStyle(
                             fontFamily: 'Poppins-Regular',
                             fontSize: 20,
@@ -200,8 +149,10 @@ class _CardWidgetState extends State<CardWidget> {
   }
 
   Future<dynamic> createSearchScreen(BuildContext context) {
+    bool showSearchIcon = true;
     _runFilter("");
     List<bool> _selections = [true, false];
+
     return showModalBottomSheet(
         useSafeArea: true,
         isScrollControlled: true,
@@ -215,7 +166,7 @@ class _CardWidgetState extends State<CardWidget> {
               children: [
                 InkWell(
                     onTap: () {
-                      _searchController.text = "";
+                      widget.searchBarController.text = "";
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -276,19 +227,19 @@ class _CardWidgetState extends State<CardWidget> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 8),
                   child: TextFormField(
-                    controller: _searchController,
+                    controller: widget.searchBarController,
                     keyboardType: TextInputType.name,
                     onChanged: (value) => _runFilter(value),
-                    // onTapOutside: (event) => _runFilter(""),
-                    // onTap: () {
-                    //   _runFilter(_searchController.text);
-                    // },
+                    onTap: () {
+                      showSearchIcon = !showSearchIcon;
+                    },
                     decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 15),
                         hintText: "Search crypto assets",
-                        suffixIcon: IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.search)),
+                        suffixIcon: Visibility(
+                            visible: showSearchIcon,
+                            child: const Icon(Icons.search)),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: const BorderSide())),
@@ -329,8 +280,9 @@ class _CardWidgetState extends State<CardWidget> {
               onTap: () {
                 setState(() {
                   coinIsSelected = !coinIsSelected;
-                  _selectedCoin1 = _availableCryptoCoins[index];
-                  print(_selectedCoin1.coinSymbol);
+                  widget.selectedCoin = _availableCryptoCoins[index];
+                  widget.searchBarController.text = "";
+                  print(widget.selectedCoin.coinSymbol);
                   print(coinIsSelected);
                   Navigator.pop(context);
                 });
