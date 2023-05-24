@@ -152,8 +152,6 @@ class _CryptoCardState extends State<CryptoCard> {
   Future<dynamic> createSearchScreen(BuildContext context) {
     bool showSearchIcon = true;
     _runFilter("");
-    List<bool> _selections = [true, false];
-
     return showModalBottomSheet(
         useSafeArea: true,
         isScrollControlled: true,
