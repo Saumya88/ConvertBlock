@@ -33,6 +33,7 @@ class _CryptoCardState extends State<CryptoCard> {
   @override
   void initState() {
     _availableCryptoCoins = widget.allCoins;
+
     super.initState();
   }
 
@@ -183,46 +184,105 @@ class _CryptoCardState extends State<CryptoCard> {
                 const SizedBox(
                   height: 20,
                 ),
-                ToggleButtons(
-                    isSelected: _selections,
-                    selectedColor: Colors.white,
-                    color: Colors.black,
-                    fillColor: Colors.black,
-                    renderBorder: true,
-                    textStyle: const TextStyle(
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
-                    borderRadius: BorderRadius.circular(20),
-                    onPressed: (int index) {
-                      setState(() {
-                        _selections[index] = !_selections[index];
-                      });
-                    },
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Row(
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.height * 0.22,
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: widget.label == "From"
+                                ? Colors.black
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Center(
                             child: Text(
                               'From',
+                              style: TextStyle(
+                                color: widget.label == "From"
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontFamily: 'Poppins-Regular',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.height * 0.22,
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: widget.label == "To"
+                                ? Colors.black
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Center(
                             child: Text(
                               'To',
+                              style: TextStyle(
+                                color: widget.label == "To"
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontFamily: 'Poppins-Regular',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ]),
+                    ],
+                  ),
+                ),
+                // ToggleButtons(
+                //     isSelected: _selections,
+                //     selectedColor: Colors.white,
+                //     color: Colors.black,
+                //     fillColor: Colors.black,
+                //     renderBorder: true,
+                //     textStyle: const TextStyle(
+                //         letterSpacing: 1,
+                //         fontWeight: FontWeight.w500,
+                //         fontSize: 16),
+                //     borderRadius: BorderRadius.circular(20),
+                //     onPressed: (int index) {
+                //       setState(() {
+                //         _selections[index] = !_selections[index];
+                //       });
+                //     },
+                //     children: [
+                //       Container(
+                //         width: MediaQuery.of(context).size.height * 0.22,
+                //         child: const Center(
+                //           child: Padding(
+                //             padding: EdgeInsets.all(8.0),
+                //             child: Text(
+                //               'From',
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //       Container(
+                //         width: MediaQuery.of(context).size.height * 0.22,
+                //         child: const Center(
+                //           child: Padding(
+                //             padding: EdgeInsets.all(8.0),
+                //             child: Text(
+                //               'To',
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ]),
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 8),
