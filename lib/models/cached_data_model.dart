@@ -1,5 +1,5 @@
 class CachedCryptoData {
-  String? assetId;
+  String? coinSymbol;
   String? name;
   int? typeIsCrypto;
   String? dataQuoteStart;
@@ -13,7 +13,7 @@ class CachedCryptoData {
   String? dataEnd;
 
   CachedCryptoData(
-      {this.assetId,
+      {this.coinSymbol,
       this.name,
       this.typeIsCrypto,
       this.dataQuoteStart,
@@ -27,7 +27,7 @@ class CachedCryptoData {
       this.dataEnd});
 
   CachedCryptoData.fromJson(Map<String, dynamic> json) {
-    assetId = json['asset_id'];
+    coinSymbol = json['asset_id'];
     name = json['name'];
     typeIsCrypto = json['type_is_crypto'];
     dataQuoteStart = json['data_quote_start'];

@@ -6,6 +6,7 @@ import 'package:web_project/models/coin_model.dart';
 
 class CryptoService {
   final String baseUrl = 'rest.coinapi.io';
+  List<CachedCryptoData> cachedCoins = [];
 
   Future<List<CoinModel>> getAllCoins() async {
     final uri = Uri.https(baseUrl, '/v1/assets/icons/32');
@@ -17,7 +18,9 @@ class CryptoService {
       List<CoinModel> coins =
           data.map((coinJson) => CoinModel.fromJson(coinJson)).toList();
 
-      // loadCacheData(); // calling loadCacheData for testing
+      cachedCoins = await loadCacheData(); // calling loadCacheData for testing
+      print(coins.length);
+      print(cachedCoins.length);
 
       return coins;
     } else {
@@ -35,10 +38,7 @@ class CryptoService {
       List<CachedCryptoData> cachedCoins = cacheData
           .map((cacheJson) => CachedCryptoData.fromJson(cacheJson))
           .toList();
-      print("This is cached data");
-      for (int i = 0; i < cachedCoins.length; i++) {
-        print(cachedCoins[i].assetId);
-      }
+
       return cachedCoins;
     } else {
       return [];

@@ -37,7 +37,6 @@ class _CryptoCardState extends State<CryptoCard> {
   @override
   void initState() {
     _availableCryptoCoins = widget.allCoins;
-    // print("width of screen is:${MediaQuery.of(context).size.width}");
     super.initState();
   }
 
@@ -102,7 +101,6 @@ class _CryptoCardState extends State<CryptoCard> {
                               'Max Amount',
                               style: TextStyle(
                                   fontFamily: 'Poppins-Regular',
-                                  //letterSpacing: 0.3,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500),
                             ),
