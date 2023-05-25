@@ -3,20 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_project/models/coin_model.dart';
 import 'package:web_project/resources/crypto_repository.dart';
 
-part 'search_crypto_event.dart';
-part 'search_crypto_state.dart';
+part 'convert_view_event.dart';
+part 'convert_view_state.dart';
 
-class SearchCryptoBloc extends Bloc<SearchCryptoEvent, SearchCryptoState> {
-  SearchCryptoBloc() : super(SearchCryptoInitial()) {
+class ConvertViewBloc extends Bloc<ConvertViewEvent, ConvertViewState> {
+  ConvertViewBloc() : super(ConvertViewInitial()) {
     final CryptoRepository cryptoRepoistory = CryptoRepository();
 
     on<GetCoinList>((event, emit) async {
       try {
-        emit(SearchCryptoLoading());
+        emit(ConvertViewLoading());
         final coinList = await cryptoRepoistory.getAllCoins();
-        emit(SearchCryptoLoaded(coinList));
+        emit(ConvertViewLoaded(coinList));
       } on NetworkError {
-        emit(const SearchCryptoError("Failed to fetch data.."));
+        emit(const ConvertViewError("Failed to fetch data.."));
       }
     });
   }

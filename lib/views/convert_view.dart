@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_project/blocs/search_crypto/search_crypto_bloc.dart';
+import 'package:web_project/blocs/convert_view/convert_view_bloc.dart';
 import 'package:web_project/models/coin_model.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
@@ -11,20 +11,20 @@ TextEditingController _controller2 = TextEditingController();
 TextEditingController _searchController = TextEditingController();
 
 // ignore: must_be_immutable
-class ConvertBlock extends StatefulWidget {
+class ConvertView extends StatefulWidget {
   double cardWidth;
   double cardHeight;
-  ConvertBlock({super.key, required this.cardHeight, required this.cardWidth});
+  ConvertView({super.key, required this.cardHeight, required this.cardWidth});
 
   @override
-  State<ConvertBlock> createState() => _ConvertBlockState();
+  State<ConvertView> createState() => _ConvertViewState();
 }
 
-class _ConvertBlockState extends State<ConvertBlock> {
-  final SearchCryptoBloc _searchCryptoBloc = SearchCryptoBloc();
+class _ConvertViewState extends State<ConvertView> {
+  final ConvertViewBloc _convertViewBloc = ConvertViewBloc();
   @override
   void initState() {
-    _searchCryptoBloc.add(GetCoinList());
+    _convertViewBloc.add(GetCoinList());
     super.initState();
   }
 
@@ -32,10 +32,10 @@ class _ConvertBlockState extends State<ConvertBlock> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: BlocProvider(
-      create: (context) => _searchCryptoBloc,
-      child: BlocListener<SearchCryptoBloc, SearchCryptoState>(
+      create: (context) => _convertViewBloc,
+      child: BlocListener<ConvertViewBloc, ConvertViewState>(
         listener: (context, state) {
-          if (state is SearchCryptoError) {
+          if (state is ConvertViewError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message!),
@@ -43,13 +43,12 @@ class _ConvertBlockState extends State<ConvertBlock> {
             );
           }
         },
-        child: BlocBuilder<SearchCryptoBloc, SearchCryptoState>(
+        child: BlocBuilder<ConvertViewBloc, ConvertViewState>(
           builder: (context, state) {
-            if (state is SearchCryptoLoading) {
+            if (state is ConvertViewLoading) {
               return _buildLoading();
-            } else if (state is SearchCryptoLoaded) {
-              print(state.coinModel[0].coinSymbol);
-              return _buildConverterBlock(state.coinModel);
+            } else if (state is ConvertViewLoaded) {
+              return _buildConvertView(state.coinModel);
             } else {
               return const Center(child: Text("Doodle"));
             }
@@ -68,7 +67,7 @@ class _ConvertBlockState extends State<ConvertBlock> {
     );
   }
 
-  Column _buildConverterBlock(List<CoinModel> cryptoCoins) {
+  Column _buildConvertView(List<CoinModel> cryptoCoins) {
     return Column(
       children: [
         CryptoCard(

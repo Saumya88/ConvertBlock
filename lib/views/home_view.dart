@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:web_project/views/convert_block.dart';
+import 'package:web_project/views/convert_view.dart';
 import 'package:web_project/widgets/app_button.dart';
 import 'package:web_project/widgets/bottom_navigation_bar.dart';
 import 'package:web_project/widgets/navigation_bar.dart';
@@ -15,9 +15,9 @@ class HomeView extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < 600) {
-          return MobileBody();
+          return const MobileBody();
         } else {
-          return DesktopBody();
+          return const DesktopBody();
         }
       },
     );
@@ -39,7 +39,7 @@ class MobileBody extends StatelessWidget {
               children: [
                 const TopNavigationBar(),
                 const SizedBox(height: 20),
-                ConvertBlock(
+                ConvertView(
                   cardHeight: 180,
                   cardWidth: MediaQuery.of(context).size.width,
                 ),
@@ -73,7 +73,7 @@ class DesktopBody extends StatelessWidget {
             child: Column(
               children: [
                 const TopNavigationBar(),
-                ConvertBlock(
+                ConvertView(
                   cardHeight: 150,
                   cardWidth: MediaQuery.of(context).size.width / 2,
                 ),
