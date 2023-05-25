@@ -23,7 +23,7 @@ class AppTextField extends StatelessWidget {
       width: 200,
       child: TextField(
         style: const TextStyle(
-          fontSize: 30,
+          fontSize: 25,
           letterSpacing: -0.3,
           fontWeight: FontWeight.w400,
         ),
@@ -35,7 +35,7 @@ class AppTextField extends StatelessWidget {
           hintText: hint,
           errorText: errorText,
           hintStyle: const TextStyle(
-            fontSize: 22,
+            fontSize: 20,
             fontWeight: FontWeight.w400,
           ),
           filled: true,

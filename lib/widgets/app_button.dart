@@ -3,14 +3,16 @@ import 'package:web_project/widgets/app_icon.dart';
 
 import '../utilities/colors.dart';
 
+// ignore: must_be_immutable
 class AppButton extends StatelessWidget {
-  const AppButton({super.key});
+  double appButtonWidth;
+  AppButton({super.key, required this.appButtonWidth});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: appButtonWidth,
         height: 50,
         margin: const EdgeInsets.fromLTRB(22, 0, 22, 10),
         decoration: const BoxDecoration(

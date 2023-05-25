@@ -6,39 +6,15 @@ import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
 import 'package:web_project/widgets/crypto_card.dart';
 
-// final List<CryptoCoin> _cryptoCoins = <CryptoCoin>[
-//   const CryptoCoin(
-//       coinSymbol: 'BTC',
-//       coinName: 'Bitcoin',
-//       coinImageUrl: 'assets/coins/BTC.png',
-//       circleAvatarColor: AppColors.btcColor),
-//   const CryptoCoin(
-//       coinSymbol: 'LTC',
-//       coinName: 'Litecoin',
-//       coinImageUrl: 'assets/coins/LTC.png',
-//       circleAvatarColor: AppColors.ltcColor),
-//   const CryptoCoin(
-//       coinSymbol: 'ADA',
-//       coinName: 'Cardano',
-//       coinImageUrl: 'assets/coins/ADA.png',
-//       circleAvatarColor: AppColors.adaColor),
-//   const CryptoCoin(
-//       coinSymbol: 'ENJ',
-//       coinName: 'Enjin',
-//       coinImageUrl: 'assets/coins/ENJ.png',
-//       circleAvatarColor: AppColors.enjColor),
-//   const CryptoCoin(
-//       coinSymbol: 'SOL',
-//       coinName: 'Solano',
-//       coinImageUrl: 'assets/coins/SOL.png',
-//       circleAvatarColor: AppColors.solColor),
-// ];
 TextEditingController _controller1 = TextEditingController();
 TextEditingController _controller2 = TextEditingController();
 TextEditingController _searchController = TextEditingController();
 
+// ignore: must_be_immutable
 class ConvertBlock extends StatefulWidget {
-  const ConvertBlock({super.key});
+  double cardWidth;
+  double cardHeight;
+  ConvertBlock({super.key, required this.cardHeight, required this.cardWidth});
 
   @override
   State<ConvertBlock> createState() => _ConvertBlockState();
@@ -83,11 +59,21 @@ class _ConvertBlockState extends State<ConvertBlock> {
     ));
   }
 
-  Widget _buildLoading() => const Center(child: CircularProgressIndicator());
+  Widget _buildLoading() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
   Column _buildConverterBlock(List<CoinModel> cryptoCoins) {
     return Column(
       children: [
         CryptoCard(
+            cardHeight: widget.cardHeight,
+            cardWidth: widget.cardWidth,
             textFieldController: _controller1,
             searchBarController: _searchController,
             isVisible: true,
@@ -109,6 +95,8 @@ class _ConvertBlockState extends State<ConvertBlock> {
           ),
         ),
         CryptoCard(
+            cardHeight: widget.cardHeight,
+            cardWidth: widget.cardWidth,
             searchBarController: _searchController,
             textFieldController: _controller2,
             isVisible: false,

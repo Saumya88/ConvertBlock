@@ -16,6 +16,8 @@ class CryptoCard extends StatefulWidget {
       required this.selectedCoin,
       required this.onTapDropDown,
       required this.allCoins,
+      required this.cardWidth,
+      required this.cardHeight,
       super.key});
   CoinModel selectedCoin;
   String label;
@@ -24,6 +26,8 @@ class CryptoCard extends StatefulWidget {
   bool isVisible;
   void Function() onTapDropDown;
   List<CoinModel> allCoins;
+  double cardHeight;
+  double cardWidth;
 
   @override
   State<CryptoCard> createState() => _CryptoCardState();
@@ -33,7 +37,7 @@ class _CryptoCardState extends State<CryptoCard> {
   @override
   void initState() {
     _availableCryptoCoins = widget.allCoins;
-
+    // print("width of screen is:${MediaQuery.of(context).size.width}");
     super.initState();
   }
 
@@ -56,8 +60,8 @@ class _CryptoCardState extends State<CryptoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 180,
+      width: widget.cardWidth,
+      height: widget.cardHeight,
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       decoration: const BoxDecoration(
@@ -110,26 +114,32 @@ class _CryptoCardState extends State<CryptoCard> {
           const SizedBox(
             height: 20,
           ),
-          Flexible(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppTextField(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: AppTextField(
                   controller: widget.textFieldController,
                   hint: 'Enter amount',
                 ),
-                InkWell(
+              ),
+              Expanded(
+                child: InkWell(
                   onTap: () {
                     createSearchScreen(context);
                   },
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: AppIcon(iconPath: 'assets/coins/BTC.png'),
+                      Container(
+                        child: MediaQuery.of(context).size.width > 450
+                            ? const CircleAvatar(
+                                backgroundColor: Colors.white,
+                                child:
+                                    AppIcon(iconPath: 'assets/coins/BTC.png'),
+                              )
+                            : Image.network(widget.selectedCoin.coinImageUrl!),
                       ),
-                      // Image.network(widget.selectedCoin.coinImageUrl!),
-                      const SizedBox(width: 10),
                       Text(widget.selectedCoin.coinSymbol!,
                           style: const TextStyle(
                             fontFamily: 'Poppins-Regular',
@@ -140,8 +150,8 @@ class _CryptoCardState extends State<CryptoCard> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
@@ -240,46 +250,6 @@ class _CryptoCardState extends State<CryptoCard> {
                     ],
                   ),
                 ),
-                // ToggleButtons(
-                //     isSelected: _selections,
-                //     selectedColor: Colors.white,
-                //     color: Colors.black,
-                //     fillColor: Colors.black,
-                //     renderBorder: true,
-                //     textStyle: const TextStyle(
-                //         letterSpacing: 1,
-                //         fontWeight: FontWeight.w500,
-                //         fontSize: 16),
-                //     borderRadius: BorderRadius.circular(20),
-                //     onPressed: (int index) {
-                //       setState(() {
-                //         _selections[index] = !_selections[index];
-                //       });
-                //     },
-                //     children: [
-                //       Container(
-                //         width: MediaQuery.of(context).size.height * 0.22,
-                //         child: const Center(
-                //           child: Padding(
-                //             padding: EdgeInsets.all(8.0),
-                //             child: Text(
-                //               'From',
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       Container(
-                //         width: MediaQuery.of(context).size.height * 0.22,
-                //         child: const Center(
-                //           child: Padding(
-                //             padding: EdgeInsets.all(8.0),
-                //             child: Text(
-                //               'To',
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ]),
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -339,18 +309,20 @@ class _CryptoCardState extends State<CryptoCard> {
                   coinIsSelected = !coinIsSelected;
                   widget.selectedCoin = _availableCryptoCoins[index];
                   widget.searchBarController.text = "";
-                  //print(widget.selectedCoin.coinSymbol);
-                  print(coinIsSelected);
                   Navigator.pop(context);
                 });
               },
               child: Row(
                 children: [
-                  const CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: AppIcon(iconPath: 'assets/coins/BTC.png'),
+                  Container(
+                    child: MediaQuery.of(context).size.width > 450
+                        ? const CircleAvatar(
+                            backgroundColor: Colors.white,
+                            child: AppIcon(iconPath: 'assets/coins/BTC.png'),
+                          )
+                        : Image.network(
+                            _availableCryptoCoins[index].coinImageUrl!),
                   ),
-                  // Image.network(_availableCryptoCoins[index].coinImageUrl!),
                   const SizedBox(width: 16),
                   Text(_availableCryptoCoins[index].coinSymbol!,
                       style: const TextStyle(
