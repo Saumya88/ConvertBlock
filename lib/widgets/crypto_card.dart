@@ -124,7 +124,11 @@ class _CryptoCardState extends State<CryptoCard> {
                   },
                   child: Row(
                     children: [
-                      Image.network(widget.selectedCoin.coinImageUrl!),
+                      const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: AppIcon(iconPath: 'assets/coins/BTC.png'),
+                      ),
+                      // Image.network(widget.selectedCoin.coinImageUrl!),
                       const SizedBox(width: 10),
                       Text(widget.selectedCoin.coinSymbol!,
                           style: const TextStyle(
@@ -342,7 +346,11 @@ class _CryptoCardState extends State<CryptoCard> {
               },
               child: Row(
                 children: [
-                  Image.network(_availableCryptoCoins[index].coinImageUrl!),
+                  const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: AppIcon(iconPath: 'assets/coins/BTC.png'),
+                  ),
+                  // Image.network(_availableCryptoCoins[index].coinImageUrl!),
                   const SizedBox(width: 16),
                   Text(_availableCryptoCoins[index].coinSymbol!,
                       style: const TextStyle(
