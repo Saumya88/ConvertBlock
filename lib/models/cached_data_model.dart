@@ -40,4 +40,7 @@ class CachedCryptoData {
     dataStart = json['data_start'];
     dataEnd = json['data_end'];
   }
+  // syncCache() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  // }
 }
