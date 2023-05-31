@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/widgets/app_icon.dart';
 
 import '../utilities/colors.dart';
 
+// ignore: must_be_immutable
 class AppButton extends StatelessWidget {
-  const AppButton({super.key});
+  double appButtonWidth;
+  AppButton({super.key, required this.appButtonWidth});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 50,
+        width: appButtonWidth,
+        height: 55.h,
         margin: const EdgeInsets.fromLTRB(22, 0, 22, 10),
         decoration: const BoxDecoration(
             color: AppColors.green,
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Preview Conversion',
               style: TextStyle(
                   fontFamily: 'Poppins-Bold',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
                   letterSpacing: 1),
             ),
             AppIcon(iconPath: 'assets/arrow.png')

@@ -8,8 +8,7 @@ class TopNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-      // height: MediaQuery.of(context).size.width * 0.08,
+      margin: const EdgeInsets.fromLTRB(20, 10, 10, 10),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

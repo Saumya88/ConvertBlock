@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
 
@@ -12,7 +13,7 @@ class BottomBar extends StatelessWidget {
       decoration: const BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      height: 50,
+      height: 50.h,
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

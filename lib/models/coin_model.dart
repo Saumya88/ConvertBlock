@@ -1,13 +1,16 @@
 class CoinModel {
-  String? coinName;
-  String? coinSymbolImage;
+  String? coinSymbol;
+  String? coinImageUrl;
 
-  CoinModel({this.coinName, this.coinSymbolImage});
+  CoinModel({
+    this.coinImageUrl,
+    this.coinSymbol,
+  });
 
   factory CoinModel.fromJson(Map<String, dynamic> json) {
     return CoinModel(
-      coinName: json['coinName'],
-      coinSymbolImage: json['coinSymbolImage'],
+      coinSymbol: json['asset_id'],
+      coinImageUrl: json['url'],
     );
   }
 }

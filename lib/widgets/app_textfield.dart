@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/utilities/colors.dart';
 
 const contentPadding = EdgeInsets.fromLTRB(24, 12, 24, 12);
@@ -20,10 +21,11 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
+      width: 200.w,
       child: TextField(
-        style: const TextStyle(
-          fontSize: 30,
+        style: TextStyle(
+          fontFamily: 'Poppins-Medium',
+          fontSize: 25.sp,
           letterSpacing: -0.3,
           fontWeight: FontWeight.w400,
         ),
@@ -34,8 +36,9 @@ class AppTextField extends StatelessWidget {
           isDense: true,
           hintText: hint,
           errorText: errorText,
-          hintStyle: const TextStyle(
-            fontSize: 22,
+          hintStyle: TextStyle(
+            fontFamily: 'Poppins-Regular',
+            fontSize: 20.sp,
             fontWeight: FontWeight.w400,
           ),
           filled: true,

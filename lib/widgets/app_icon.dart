@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppIcon extends StatelessWidget {
   final String iconPath;
@@ -11,8 +12,8 @@ class AppIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45,
-      width: 45,
+      height: 50.h,
+      width: 45.w,
       child: Image.asset(iconPath),
     );
   }
