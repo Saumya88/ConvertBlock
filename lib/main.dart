@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:web_project/views/home_view.dart';
+
+import 'views/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Poppins_Light',
       ),
-      home: const HomeView(),
+      home: const HomeScreen(),
     );
   }
 }

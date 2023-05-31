@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:web_project/views/convert_view.dart';
+import 'package:web_project/widgets/converter_widget.dart';
 import 'package:web_project/widgets/app_button.dart';
 import 'package:web_project/widgets/bottom_navigation_bar.dart';
 import 'package:web_project/widgets/navigation_bar.dart';
 import '../utilities/colors.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({
+class ConversionScreen extends StatelessWidget {
+  const ConversionScreen({
     super.key,
   });
 
@@ -39,7 +39,7 @@ class MobileBody extends StatelessWidget {
               children: [
                 const TopNavigationBar(),
                 const SizedBox(height: 20),
-                ConvertView(
+                ConverterWidget(
                   cardHeight: 180,
                   cardWidth: MediaQuery.of(context).size.width,
                 ),
@@ -73,7 +73,7 @@ class DesktopBody extends StatelessWidget {
             child: Column(
               children: [
                 const TopNavigationBar(),
-                ConvertView(
+                ConverterWidget(
                   cardHeight: 150,
                   cardWidth: MediaQuery.of(context).size.width / 2,
                 ),

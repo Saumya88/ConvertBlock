@@ -10,7 +10,7 @@ class CryptoRepository {
     return _provider.getAllCoins();
   }
 
-  Future<List<CachedCryptoData>> loadCachedData() {
+  Future<List<CachedCryptoCoin>> loadCachedData() {
     return _provider.loadCacheData();
   }
 }

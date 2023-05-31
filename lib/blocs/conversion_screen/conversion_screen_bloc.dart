@@ -3,20 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_project/models/coin_model.dart';
 import 'package:web_project/resources/crypto_repository.dart';
 
-part 'convert_view_event.dart';
-part 'convert_view_state.dart';
+part 'conversion_screen_event.dart';
+part 'conversion_screen_state.dart';
 
-class ConvertViewBloc extends Bloc<ConvertViewEvent, ConvertViewState> {
-  ConvertViewBloc() : super(ConvertViewInitial()) {
+class ConversionScreenBloc
+    extends Bloc<ConversionScreenEvent, ConversionScreenState> {
+  ConversionScreenBloc() : super(ConversionScreenInitial()) {
     final CryptoRepository cryptoRepoistory = CryptoRepository();
 
     on<GetCoinList>((event, emit) async {
       try {
-        emit(ConvertViewLoading());
+        emit(ConversionScreenLoading());
         final coinList = await cryptoRepoistory.getAllCoins();
-        emit(ConvertViewLoaded(coinList));
+        emit(ConversionScreenLoaded(coinList));
       } on NetworkError {
-        emit(const ConvertViewError("Failed to fetch data.."));
+        emit(const ConversionScreenError("Failed to fetch data.."));
       }
     });
   }

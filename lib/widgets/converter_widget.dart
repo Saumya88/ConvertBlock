@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_project/blocs/convert_view/convert_view_bloc.dart';
+import 'package:web_project/blocs/conversion_screen/conversion_screen_bloc.dart';
 import 'package:web_project/models/coin_model.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
@@ -11,17 +11,18 @@ TextEditingController _controller2 = TextEditingController();
 TextEditingController _searchController = TextEditingController();
 
 // ignore: must_be_immutable
-class ConvertView extends StatefulWidget {
+class ConverterWidget extends StatefulWidget {
   double cardWidth;
   double cardHeight;
-  ConvertView({super.key, required this.cardHeight, required this.cardWidth});
+  ConverterWidget(
+      {super.key, required this.cardHeight, required this.cardWidth});
 
   @override
-  State<ConvertView> createState() => _ConvertViewState();
+  State<ConverterWidget> createState() => _ConverterWidgetState();
 }
 
-class _ConvertViewState extends State<ConvertView> {
-  final ConvertViewBloc _convertViewBloc = ConvertViewBloc();
+class _ConverterWidgetState extends State<ConverterWidget> {
+  final ConversionScreenBloc _convertViewBloc = ConversionScreenBloc();
   @override
   void initState() {
     _convertViewBloc.add(GetCoinList());
@@ -33,9 +34,9 @@ class _ConvertViewState extends State<ConvertView> {
     return SafeArea(
         child: BlocProvider(
       create: (context) => _convertViewBloc,
-      child: BlocListener<ConvertViewBloc, ConvertViewState>(
+      child: BlocListener<ConversionScreenBloc, ConversionScreenState>(
         listener: (context, state) {
-          if (state is ConvertViewError) {
+          if (state is ConversionScreenError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message!),
@@ -43,11 +44,11 @@ class _ConvertViewState extends State<ConvertView> {
             );
           }
         },
-        child: BlocBuilder<ConvertViewBloc, ConvertViewState>(
+        child: BlocBuilder<ConversionScreenBloc, ConversionScreenState>(
           builder: (context, state) {
-            if (state is ConvertViewLoading) {
+            if (state is ConversionScreenLoading) {
               return _buildLoading();
-            } else if (state is ConvertViewLoaded) {
+            } else if (state is ConversionScreenLoaded) {
               return _buildConvertView(state.coinModel);
             } else {
               return const Center(child: Text("Doodle"));
