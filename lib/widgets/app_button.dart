@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/widgets/app_icon.dart';
 
 import '../utilities/colors.dart';
@@ -13,20 +14,20 @@ class AppButton extends StatelessWidget {
     return InkWell(
       child: Container(
         width: appButtonWidth,
-        height: 50,
+        height: 55.h,
         margin: const EdgeInsets.fromLTRB(22, 0, 22, 10),
         decoration: const BoxDecoration(
             color: AppColors.green,
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Preview Conversion',
               style: TextStyle(
                   fontFamily: 'Poppins-Bold',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
                   letterSpacing: 1),
             ),
             AppIcon(iconPath: 'assets/arrow.png')

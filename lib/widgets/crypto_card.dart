@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/models/coin_model.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
@@ -77,8 +79,8 @@ class _CryptoCardState extends State<CryptoCard> {
               Expanded(
                   child: Text(
                 widget.label,
-                style: const TextStyle(
-                    fontSize: 16,
+                style: TextStyle(
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Poppins-Regular'),
               )),
@@ -95,13 +97,13 @@ class _CryptoCardState extends State<CryptoCard> {
                             ),
                             border: Border.all(color: Colors.blue, width: 2),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(2.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
                             child: Text(
                               'Max Amount',
                               style: TextStyle(
                                   fontFamily: 'Poppins-Regular',
-                                  fontSize: 10,
+                                  fontSize: 12.sp,
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -109,8 +111,8 @@ class _CryptoCardState extends State<CryptoCard> {
                       )))
             ],
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 20.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,7 +132,7 @@ class _CryptoCardState extends State<CryptoCard> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Container(
-                        child: MediaQuery.of(context).size.width > 450
+                        child: kIsWeb
                             ? const CircleAvatar(
                                 backgroundColor: Colors.white,
                                 child:
@@ -139,9 +141,9 @@ class _CryptoCardState extends State<CryptoCard> {
                             : Image.network(widget.selectedCoin.coinImageUrl!),
                       ),
                       Text(widget.selectedCoin.coinSymbol!,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Poppins-Regular',
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w400,
                           )),
                       const Icon(Icons.keyboard_arrow_down_rounded),
@@ -181,10 +183,10 @@ class _CryptoCardState extends State<CryptoCard> {
                       child:
                           Center(child: Image.asset('assets/coins/rect.png')),
                     )),
-                const Text('Search Crypto',
+                Text('Search Crypto',
                     style: TextStyle(
                         fontFamily: 'Poppins-Regular',
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.w500)),
                 const SizedBox(
                   height: 20,
@@ -199,7 +201,7 @@ class _CryptoCardState extends State<CryptoCard> {
                     children: [
                       Expanded(
                         child: Container(
-                          height: 50,
+                          height: 50.h,
                           decoration: BoxDecoration(
                             color: widget.label == "From"
                                 ? Colors.black
@@ -214,7 +216,7 @@ class _CryptoCardState extends State<CryptoCard> {
                                     ? Colors.white
                                     : Colors.black,
                                 fontFamily: 'Poppins-Regular',
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -223,7 +225,7 @@ class _CryptoCardState extends State<CryptoCard> {
                       ),
                       Expanded(
                         child: Container(
-                          height: 50,
+                          height: 50.h,
                           decoration: BoxDecoration(
                             color: widget.label == "To"
                                 ? Colors.black
@@ -238,7 +240,7 @@ class _CryptoCardState extends State<CryptoCard> {
                                     ? Colors.white
                                     : Colors.black,
                                 fontFamily: 'Poppins-Regular',
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -248,10 +250,12 @@ class _CryptoCardState extends State<CryptoCard> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 8),
                   child: TextFormField(
+                    style: TextStyle(
+                        fontSize: 16.sp, fontFamily: 'Poppins-Regular'),
                     controller: widget.searchBarController,
                     keyboardType: TextInputType.name,
                     onChanged: (value) => _runFilter(value),
@@ -264,22 +268,25 @@ class _CryptoCardState extends State<CryptoCard> {
                         hintText: "Search crypto assets",
                         suffixIcon: Visibility(
                             visible: showSearchIcon,
-                            child: const Icon(Icons.search)),
+                            child: Icon(
+                              Icons.search,
+                              size: 16.sp,
+                            )),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: const BorderSide())),
                   ),
                 ),
-                const SizedBox(height: 30),
-                const Align(
+                SizedBox(height: 30.h),
+                Align(
                   alignment: Alignment.topLeft,
                   child: Text('Crypto you own',
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 1)),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Flexible(
                   child: _availableCryptoCoins.isNotEmpty
                       ? ListView.builder(
@@ -313,19 +320,23 @@ class _CryptoCardState extends State<CryptoCard> {
               child: Row(
                 children: [
                   Container(
-                    child: MediaQuery.of(context).size.width > 450
+                    child: kIsWeb
                         ? const CircleAvatar(
+                            // radius: 2.r,
                             backgroundColor: Colors.white,
                             child: AppIcon(iconPath: 'assets/coins/BTC.png'),
                           )
                         : Image.network(
+                            //scale: 1,
+                            // width: 30.w,
+                            // height: 30.w,
                             _availableCryptoCoins[index].coinImageUrl!),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16.w),
                   Text(_availableCryptoCoins[index].coinSymbol!,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Poppins-Bold',
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w700)),
                 ],
               ),
