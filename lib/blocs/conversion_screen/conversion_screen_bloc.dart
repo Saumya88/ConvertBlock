@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_project/models/coin_model.dart';
+import 'package:web_project/models/api_crypto_coin.dart';
 import 'package:web_project/resources/crypto_repository.dart';
 
 part 'conversion_screen_event.dart';

@@ -1,14 +1,14 @@
-class CoinModel {
+class ApiCryptoCoin {
   String? coinSymbol;
   String? coinImageUrl;
 
-  CoinModel({
+  ApiCryptoCoin({
     this.coinImageUrl,
     this.coinSymbol,
   });
 
-  factory CoinModel.fromJson(Map<String, dynamic> json) {
-    return CoinModel(
+  factory ApiCryptoCoin.fromJson(Map<String, dynamic> json) {
+    return ApiCryptoCoin(
       coinSymbol: json['asset_id'],
       coinImageUrl: json['url'],
     );

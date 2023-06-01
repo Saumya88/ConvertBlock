@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:web_project/models/coin_model.dart';
+import 'package:web_project/models/api_crypto_coin.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
 import 'package:web_project/widgets/app_textfield.dart';
 
-List<CoinModel> _availableCryptoCoins = [];
+List<ApiCryptoCoin> _availableCryptoCoins = [];
 
 // ignore: must_be_immutable
 class CryptoCard extends StatefulWidget {
@@ -21,13 +21,13 @@ class CryptoCard extends StatefulWidget {
       required this.cardWidth,
       required this.cardHeight,
       super.key});
-  CoinModel selectedCoin;
+  ApiCryptoCoin selectedCoin;
   String label;
   TextEditingController textFieldController;
   TextEditingController searchBarController;
   bool isVisible;
   void Function() onTapDropDown;
-  List<CoinModel> allCoins;
+  List<ApiCryptoCoin> allCoins;
   double cardHeight;
   double cardWidth;
 
@@ -43,7 +43,7 @@ class _CryptoCardState extends State<CryptoCard> {
   }
 
   void _runFilter(String enteredKeyboard) {
-    List<CoinModel> cryptoResults = [];
+    List<ApiCryptoCoin> cryptoResults = [];
     if (enteredKeyboard.isEmpty) {
       cryptoResults = widget.allCoins;
     } else {

@@ -11,7 +11,7 @@ class ConversionScreenInitial extends ConversionScreenState {}
 class ConversionScreenLoading extends ConversionScreenState {}
 
 class ConversionScreenLoaded extends ConversionScreenState {
-  final List<CoinModel> coinModel;
+  final List<ApiCryptoCoin> coinModel;
   const ConversionScreenLoaded(this.coinModel);
 }
 

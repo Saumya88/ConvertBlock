@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:web_project/blocs/crypto_list/crypto_list_bloc.dart';
-import 'package:web_project/models/cached_data_model.dart';
+
+import 'package:web_project/blocs/crypto_list_shared_pref/crypto_list_shared_pref_bloc.dart';
+import 'package:web_project/models/cached_crypto_coin_sp.dart';
+
 import 'package:web_project/utilities/colors.dart';
 
-class CryptoListScreen extends StatefulWidget {
-  const CryptoListScreen({super.key});
+class CryptoListSharedPref extends StatefulWidget {
+  const CryptoListSharedPref({super.key});
 
   @override
-  State<CryptoListScreen> createState() => _CryptoListScreenState();
+  State<CryptoListSharedPref> createState() => _CryptoListSharedPrefState();
 }
 
-class _CryptoListScreenState extends State<CryptoListScreen> {
-  final CryptoListBloc _cryptoListBloc = CryptoListBloc();
+class _CryptoListSharedPrefState extends State<CryptoListSharedPref> {
+  final CryptoListSPBloc _cryptoListBloc = CryptoListSPBloc();
   @override
   void initState() {
     _cryptoListBloc.add(GetCacheData());
@@ -29,15 +31,15 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
             backgroundColor: AppColors.green,
             title: Center(
                 child: Text(
-              'Crypto List From Cache',
+              'Crypto list using shared pref',
               style: TextStyle(fontSize: 20.sp, fontFamily: 'Poppins-Medium'),
             )),
           ),
           body: BlocProvider(
             create: (context) => _cryptoListBloc,
-            child: BlocListener<CryptoListBloc, CryptoListState>(
+            child: BlocListener<CryptoListSPBloc, CryptoListSPState>(
               listener: (context, state) {
-                if (state is CryptoListError) {
+                if (state is CryptoListSPError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.message!),
@@ -45,11 +47,11 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                   );
                 }
               },
-              child: BlocBuilder<CryptoListBloc, CryptoListState>(
+              child: BlocBuilder<CryptoListSPBloc, CryptoListSPState>(
                 builder: (context, state) {
-                  if (state is CryptoListLoading) {
+                  if (state is CryptoListSPLoading) {
                     return _buildLoading();
-                  } else if (state is CryptoListLoaded) {
+                  } else if (state is CryptoListSPLoaded) {
                     return _buildCryptoList(state.cachedCryptoCoinList);
                   } else {
                     return const Center(child: Text("Doodle"));
@@ -67,7 +69,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            " Loading from api          ",
+            " Loading     ",
             style: TextStyle(fontSize: 30.sp, fontFamily: 'Poppins-Regular'),
           ),
           const CircularProgressIndicator(),
@@ -76,13 +78,13 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
     );
   }
 
-  Widget _buildCryptoList(List<CachedCryptoCoin> cachedList) {
+  Widget _buildCryptoList(List<CachedCryptoCoinSP> cachedList) {
     double width = MediaQuery.of(context).size.width;
     int childAspectRatio = width > 499
         ? width > 900
-            ? 3
-            : 2
-        : 1;
+            ? 4
+            : 3
+        : 2;
     return Container(
       margin: const EdgeInsets.all(8),
       child: Column(
@@ -91,10 +93,10 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
             child: GridView.builder(
               itemCount: cachedList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    MediaQuery.of(context).orientation == Orientation.landscape
-                        ? 3
-                        : 2,
+                crossAxisCount: childAspectRatio,
+                // MediaQuery.of(context).orientation == Orientation.landscape
+                //     ? 3
+                //     : 2,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
                 childAspectRatio: (childAspectRatio / 1),
@@ -118,7 +120,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                       Text(
                         cachedList[index].coinSymbol!,
                         style: TextStyle(
-                            fontSize: 20.sp,
+                            fontSize: 18.sp,
                             fontFamily: 'Poppins-Bold',
                             fontWeight: FontWeight.w700),
                       ),
@@ -128,29 +130,6 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                             fontSize: 16.sp,
                             fontFamily: 'Poppins-Medium',
                             fontWeight: FontWeight.w500),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Crypto Coin',
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontFamily: 'Poppins-Medium',
-                                fontWeight: FontWeight.w500),
-                          ),
-                          cachedList[index].typeIsCrypto == 1
-                              ? Icon(
-                                  Icons.check_circle,
-                                  color: Colors.green,
-                                  size: 16.sp,
-                                )
-                              : Icon(
-                                  Icons.cancel,
-                                  color: Colors.red,
-                                  size: 16.sp,
-                                )
-                        ],
                       ),
                     ],
                   ),
