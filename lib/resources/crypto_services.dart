@@ -19,7 +19,7 @@ class CryptoService {
           List<Map<String, dynamic>>.from(jsonDecode(response.body) as List);
       List<ApiCryptoCoin> coins =
           data.map((coinJson) => ApiCryptoCoin.fromJson(coinJson)).toList();
-      loadUsingSharedPreferences();
+      // loadUsingSharedPreferences();
 
       return coins;
     } else {
@@ -38,13 +38,18 @@ class CryptoService {
     if (cacheResponse.statusCode >= 200 && cacheResponse.statusCode < 205) {
       //instance of share preferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      final str = prefs.getStringList('coins');
+      final sharedPreferencesCacheData = prefs.getStringList('coins');
 
-      if (str == null) {
+      if (sharedPreferencesCacheData == null) {
         print('shared preferences from API');
         List<Map<String, dynamic>> data = List<Map<String, dynamic>>.from(
             jsonDecode(cacheResponse.body) as List);
-        data = data.where((apiData) => apiData['type_is_crypto'] == 1).toList();
+        data = data
+            .where((apiData) =>
+                apiData['type_is_crypto'] == 1 &&
+                apiData['data_symbols_count'] > 27 &&
+                apiData['data_symbols_count'] < 33)
+            .toList();
         prefs.setStringList(
             'coins',
             data.map((jsonData) {
@@ -54,20 +59,21 @@ class CryptoService {
         List<CachedCryptoCoinSP> cachedCoins = data
             .map((cacheJson) => CachedCryptoCoinSP.fromJson(cacheJson))
             .toList();
+        print('Length of cached coins: ${cachedCoins.length}');
         return cachedCoins;
       } else {
         print('shared preferences from cache');
-        final coinData = str
+        SharedPreferences cachePrefs = await SharedPreferences.getInstance();
+        final cache = cachePrefs.getStringList('coins');
+        final coinData = cache!
             .map((cacheJson) =>
                 Map<String, dynamic>.from(jsonDecode(cacheJson) as Map))
             .toList();
         List<CachedCryptoCoinSP> cachedCoins = coinData
             .map((cacheJson) => CachedCryptoCoinSP.fromJson(cacheJson))
             .toList();
-        print(cachedCoins.length);
-        for (int i = 0; i < 10; i++) {
-          print(cachedCoins[i].name);
-        }
+        print('Length of cached coins: ${cachedCoins.length}');
+
         return cachedCoins;
       }
     } else {

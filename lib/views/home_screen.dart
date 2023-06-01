@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/views/conversion_screen.dart';
 import 'package:web_project/views/crypto_list_path_provider_screen.dart';
+import 'package:web_project/views/crypto_list_shared_pref_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -78,7 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       label: 'Shared Preferences Cache Data ',
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ConversionScreen()));
+                            builder: (context) =>
+                                const CryptoListSharedPref()));
                       },
                     ),
                   ],

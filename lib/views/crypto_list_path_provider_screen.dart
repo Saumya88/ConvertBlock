@@ -29,7 +29,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
             backgroundColor: AppColors.green,
             title: Center(
                 child: Text(
-              'Crypto List From Cache',
+              'Crypto list using path provider',
               style: TextStyle(fontSize: 20.sp, fontFamily: 'Poppins-Medium'),
             )),
           ),
@@ -67,7 +67,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            " Loading from api          ",
+            " Loading     ",
             style: TextStyle(fontSize: 30.sp, fontFamily: 'Poppins-Regular'),
           ),
           const CircularProgressIndicator(),
