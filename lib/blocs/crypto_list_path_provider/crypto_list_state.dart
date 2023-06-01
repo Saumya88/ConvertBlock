@@ -11,7 +11,7 @@ class CryptoListInitial extends CryptoListState {}
 class CryptoListLoading extends CryptoListState {}
 
 class CryptoListLoaded extends CryptoListState {
-  final List<CachedCryptoCoin> cachedCryptoCoinList;
+  final List<CachedCryptoCoinPP> cachedCryptoCoinList;
   const CryptoListLoaded(this.cachedCryptoCoinList);
 }
 

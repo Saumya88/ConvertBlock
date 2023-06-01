@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/views/conversion_screen.dart';
-import 'package:web_project/views/crypto_list_screen.dart';
+import 'package:web_project/views/crypto_list_path_provider_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,4 +1,4 @@
-import 'package:web_project/models/cached_data_model.dart';
+import 'package:web_project/models/cached_crypto_coin_pp.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_project/resources/crypto_repository.dart';

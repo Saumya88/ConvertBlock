@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:web_project/blocs/crypto_list/crypto_list_bloc.dart';
-import 'package:web_project/models/cached_data_model.dart';
+import 'package:web_project/blocs/crypto_list_path_provider/crypto_list_bloc.dart';
+import 'package:web_project/models/cached_crypto_coin_pp.dart';
 import 'package:web_project/utilities/colors.dart';
 
 class CryptoListScreen extends StatefulWidget {
@@ -76,7 +76,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
     );
   }
 
-  Widget _buildCryptoList(List<CachedCryptoCoin> cachedList) {
+  Widget _buildCryptoList(List<CachedCryptoCoinPP> cachedList) {
     double width = MediaQuery.of(context).size.width;
     int childAspectRatio = width > 499
         ? width > 900

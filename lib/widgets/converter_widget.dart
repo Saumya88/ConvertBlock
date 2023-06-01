@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_project/blocs/conversion_screen/conversion_screen_bloc.dart';
-import 'package:web_project/models/coin_model.dart';
+import 'package:web_project/models/api_crypto_coin.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/app_icon.dart';
 import 'package:web_project/widgets/crypto_card.dart';
@@ -68,7 +68,7 @@ class _ConverterWidgetState extends State<ConverterWidget> {
     );
   }
 
-  Column _buildConvertView(List<CoinModel> cryptoCoins) {
+  Column _buildConvertView(List<ApiCryptoCoin> cryptoCoins) {
     return Column(
       children: [
         CryptoCard(
