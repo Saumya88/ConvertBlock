@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:web_project/views/profile_screen.dart';
 import 'package:web_project/widgets/app_icon.dart';
 
 import '../utilities/colors.dart';
@@ -34,7 +35,10 @@ class AppButton extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const ProfileScreen()));
+      },
     );
   }
 }

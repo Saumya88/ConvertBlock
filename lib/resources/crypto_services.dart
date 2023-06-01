@@ -13,7 +13,7 @@ class CryptoService {
   Future<List<ApiCryptoCoin>> getAllCoins() async {
     final uri = Uri.https(baseUrl, '/v1/assets/icons/32');
     final response = await http.get(uri,
-        headers: {'X-CoinAPI-Key': '53D58867-46B7-43B1-95CB-3CD1F4C14B4A'});
+        headers: {'X-CoinAPI-Key': '25511205-B644-4058-B1B8-B3800CA13D04'});
     if (response.statusCode >= 200 && response.statusCode < 205) {
       List<Map<String, dynamic>> data =
           List<Map<String, dynamic>>.from(jsonDecode(response.body) as List);
@@ -33,7 +33,7 @@ class CryptoService {
     // API url
     final cacheUri = Uri.https(baseUrl, '/v1/assets/');
     final cacheResponse = await http.get(cacheUri,
-        headers: {'X-CoinAPI-Key': '53D58867-46B7-43B1-95CB-3CD1F4C14B4A'});
+        headers: {'X-CoinAPI-Key': '25511205-B644-4058-B1B8-B3800CA13D04'});
     //if request has succeded
     if (cacheResponse.statusCode >= 200 && cacheResponse.statusCode < 205) {
       //instance of share preferences
@@ -92,7 +92,7 @@ class CryptoService {
       print("loading crypto list from API");
       final cacheUri = Uri.https(baseUrl, '/v1/assets/');
       final cacheResponse = await http.get(cacheUri,
-          headers: {'X-CoinAPI-Key': '53D58867-46B7-43B1-95CB-3CD1F4C14B4A'});
+          headers: {'X-CoinAPI-Key': '25511205-B644-4058-B1B8-B3800CA13D04'});
       if (cacheResponse.statusCode >= 200 && cacheResponse.statusCode < 205) {
         List<Map<String, dynamic>> data = List<Map<String, dynamic>>.from(
             jsonDecode(cacheResponse.body) as List);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'views/home_screen.dart';
+import 'package:web_project/views/profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
               fontFamily: 'Poppins_Light',
             ),
-            home: const HomeScreen(),
+            home: const ProfileScreen(),
           );
         });
   }
