@@ -4,6 +4,7 @@ import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/views/conversion_screen.dart';
 import 'package:web_project/views/crypto_list_path_provider_screen.dart';
 import 'package:web_project/views/crypto_list_shared_pref_screen.dart';
+import 'package:web_project/widgets/homescreen_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -55,19 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? 3
                       : 1,
                   children: [
-                    SizedBox(
-                      height: 50,
-                      child: SquareAppButton(
-                        buttonWidth: MediaQuery.of(context).size.width,
-                        label: 'Conversion Screen',
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ConversionScreen()));
-                        },
-                      ),
+                    SquareAppButton(
+                      label: 'Conversion Screen',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const ConversionScreen()));
+                      },
                     ),
                     SquareAppButton(
-                      buttonWidth: MediaQuery.of(context).size.width,
                       label: 'Path Provider Cache Data',
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -75,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     SquareAppButton(
-                      buttonWidth: MediaQuery.of(context).size.width,
                       label: 'Shared Preferences Cache Data ',
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -87,46 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SquareAppButton extends StatelessWidget {
-  final String label;
-  final void Function() onTap;
-  final double buttonWidth;
-  const SquareAppButton({
-    required this.buttonWidth,
-    required this.onTap,
-    required this.label,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    // return Text(label);
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.blueAccent, width: 3),
-            color: AppColors.green,
-            borderRadius: const BorderRadius.all(Radius.circular(20))),
-        child: SizedBox(
-          height: 50,
-          child: Center(
-            child: Text(
-              label,
-              style: TextStyle(
-                  fontFamily: 'Poppins-Light',
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 1),
-            ),
           ),
         ),
       ),

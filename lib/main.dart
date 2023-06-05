@@ -19,13 +19,12 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              useMaterial3: true,
-              fontFamily: 'Poppins_Light',
-            ),
-            home: const ProfileScreen(),
-          );
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                useMaterial3: true,
+                fontFamily: 'Poppins_Light',
+              ),
+              home: const ProfileScreen());
         });
   }
 }

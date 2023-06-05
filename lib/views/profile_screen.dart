@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_final_fields
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/database/database_sql.dart';
 import 'package:web_project/utilities/colors.dart';
+import 'package:web_project/widgets/camera.dart';
+import 'package:web_project/widgets/green_square_button.dart';
+import 'package:web_project/widgets/labeled_textfield.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -48,8 +52,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () {
-                          _textEditingController3.text = 'saumya';
+                        onTap: () async {
+                          await availableCameras().then(
+                            (value) => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CameraWidget(cameras: value),
+                              ),
+                            ),
+                          );
                         },
                         child: CircleAvatar(
                           radius: 50.r,
@@ -101,7 +112,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           keyboardType: TextInputType.text,
                         ),
                         SizedBox(height: 40.h),
-                        InkWell(
+                        GreenSquareButton(
+                          label: 'Save Data',
                           onTap: () async {
                             await DataBaseHelper.instance.insertRecord({
                               DataBaseHelper.userName:
@@ -113,78 +125,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               DataBaseHelper.userPhoto: 'assets/image/dog.png'
                             });
                           },
-                          child: Container(
-                            height: 45.h,
-                            width: width / 2,
-                            // margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                            decoration: BoxDecoration(
-                              color: AppColors.green,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-
-                            child: Center(
-                              child: Text(
-                                'Save Data',
-                                style: TextStyle(
-                                    // color: Colors.white,
-                                    fontFamily: 'Poppins-Bold',
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w400,
-                                    letterSpacing: 1),
-                              ),
-                            ),
-                          ),
                         ),
-                        InkWell(
+                        GreenSquareButton(
+                          label: 'Display Data',
                           onTap: () async {
                             var dbQuery =
                                 await DataBaseHelper.instance.queryDatabase();
                             print(dbQuery);
                           },
-                          child: Container(
-                            height: 45.h,
-                            width: width / 2,
-                            // margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                            decoration: BoxDecoration(
-                              color: AppColors.green,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-
-                            child: Center(
-                              child: Text(
-                                'Display Data',
-                                style: TextStyle(
-                                    // color: Colors.white,
-                                    fontFamily: 'Poppins-Bold',
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w400,
-                                    letterSpacing: 1),
-                              ),
-                            ),
-                          ),
-                        ),
+                        )
                       ],
                     ),
                   )
@@ -194,71 +143,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class LabeledTextField extends StatelessWidget {
-  final String label;
-  final TextEditingController controller;
-  final TextInputType keyboardType;
-
-  const LabeledTextField({
-    required this.label,
-    required this.controller,
-    required this.keyboardType,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Text(
-            label,
-            //textAlign: TextAlign.right,
-            style: TextStyle(
-              fontFamily: 'Poppins-Medium',
-              fontSize: 22.sp,
-              letterSpacing: -0.3,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Container(
-            width: MediaQuery.of(context).size.width / 4,
-            margin: const EdgeInsets.only(left: 8),
-            child: TextFormField(
-              style: TextStyle(
-                fontFamily: 'Poppins-Light',
-                fontSize: 22.sp,
-                letterSpacing: -0.3,
-                fontWeight: FontWeight.w300,
-              ),
-              keyboardType: keyboardType,
-              textAlignVertical: TextAlignVertical.center,
-              controller: controller,
-              decoration: const InputDecoration(
-                isDense: true,
-                filled: true,
-                fillColor: AppColors.white,
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                focusedErrorBorder: InputBorder.none,
-              ),
-              obscuringCharacter: '*',
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
