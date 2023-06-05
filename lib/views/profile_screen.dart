@@ -25,9 +25,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   TextEditingController _textEditingController1 = TextEditingController();
   TextEditingController _textEditingController2 = TextEditingController();
-  TextEditingController _textEditingController3 = TextEditingController();
-  TextEditingController _textEditingController4 = TextEditingController();
+
   String _imagePath = '';
+  String _locationPath = '';
+  void updateLccationPath(String locationPath) {
+    print('inside update path');
+    setState(() => _locationPath = locationPath);
+    print(_locationPath);
+  }
 
   void updateImagePath(String imagePath) {
     print('inside update path');
@@ -88,9 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SizedBox(width: 10.w),
                       InkWell(
-                        onTap: () {
-                          _textEditingController3.text = 'saumya';
-                        },
+                        onTap: () {},
                         child: CircleAvatar(
                           radius: 50.r,
                           backgroundColor: Colors.blueGrey,
@@ -120,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           keyboardType: TextInputType.phone,
                         ),
                         SizedBox(height: 10.h),
-                        makeUneditableLabel(context, 'Location', '_imagePath'),
+                        makeUneditableLabel(context, 'Location', _locationPath),
                         SizedBox(height: 10.h),
                         makeUneditableLabel(context, 'Image Path', _imagePath),
                         SizedBox(height: 40.h),
@@ -132,9 +135,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   _textEditingController1.text,
                               DataBaseHelper.userPhoneNumber:
                                   _textEditingController2.text,
-                              DataBaseHelper.userLocation:
-                                  _textEditingController3.text,
-                              DataBaseHelper.userPhoto: 'assets/image/dog.png'
+                              DataBaseHelper.userLocation: _locationPath,
+                              DataBaseHelper.userPhoto: _imagePath
                             });
                           },
                         ),
