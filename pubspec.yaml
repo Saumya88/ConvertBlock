@@ -23,6 +23,8 @@ dependencies:
   firebase_messaging: ^14.6.2
   flutter_local_notifications:
   sqflite: ^2.2.8+4
+  image_picker: ^0.8.7+5
+  camera: ^0.10.5+2
   
 
 dev_dependencies:
