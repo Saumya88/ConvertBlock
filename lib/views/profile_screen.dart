@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields
 
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/database/database_sql.dart';
@@ -25,6 +26,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController _textEditingController1 = TextEditingController();
   TextEditingController _textEditingController2 = TextEditingController();
   TextEditingController _textEditingController3 = TextEditingController();
+  TextEditingController _textEditingController4 = TextEditingController();
+  String _imagePath = '';
+
+  void updateImagePath(String imagePath) {
+    print('inside update path');
+    setState(() => _imagePath = imagePath);
+    print(_imagePath);
+  }
+
+  void moveToNextPage(Widget widget) async {
+    print('inside move to Next Page');
+    final imgPath = await Navigator.push(
+      context,
+      CupertinoPageRoute(fullscreenDialog: true, builder: (context) => widget),
+    );
+    updateImagePath(imgPath);
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -53,14 +72,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       InkWell(
                         onTap: () async {
-                          await availableCameras().then(
-                            (value) => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    CameraWidget(cameras: value),
-                              ),
-                            ),
-                          );
+                          await availableCameras().then((value) {
+                            moveToNextPage(CameraWidget(cameras: value));
+                          });
                         },
                         child: CircleAvatar(
                           radius: 50.r,
@@ -106,11 +120,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           keyboardType: TextInputType.phone,
                         ),
                         SizedBox(height: 10.h),
-                        LabeledTextField(
-                          label: 'Location',
-                          controller: _textEditingController3,
-                          keyboardType: TextInputType.text,
-                        ),
+                        makeUneditableLabel(context, 'Location', '_imagePath'),
+                        SizedBox(height: 10.h),
+                        makeUneditableLabel(context, 'Image Path', _imagePath),
                         SizedBox(height: 40.h),
                         GreenSquareButton(
                           label: 'Save Data',
@@ -143,6 +155,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Row makeUneditableLabel(BuildContext context, String label1, String label2) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(
+            label1,
+            style: TextStyle(
+              fontFamily: 'Poppins-Medium',
+              fontSize: 22.sp,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(left: 8),
+              child: Text(
+                label2,
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontFamily: 'Poppins-Light',
+                  fontSize: 16.sp,
+                  letterSpacing: -0.3,
+                  fontWeight: FontWeight.w300,
+                ),
+              )),
+        ),
+      ],
     );
   }
 }

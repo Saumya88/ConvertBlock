@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/widgets/green_square_button.dart';
@@ -59,13 +62,13 @@ class _CameraWidgetState extends State<CameraWidget> {
                 child: CameraPreview(controller),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width / 5,
+                width: MediaQuery.of(context).size.width / 4,
                 child: GreenSquareButton(
                     onTap: () async {
                       pictureFile = await controller.takePicture();
                       setState(() {});
                     },
-                    label: 'Capture Image'),
+                    label: 'Capture'),
               ),
               if (pictureFile != null)
                 Column(
@@ -74,13 +77,19 @@ class _CameraWidgetState extends State<CameraWidget> {
                       height: 200.h,
                       width: 300.h,
                       margin: EdgeInsets.all(5.sp),
-                      child: Image.network(
-                        pictureFile!.path,
-                      ),
+                      child: kIsWeb
+                          ? Image.network(
+                              pictureFile!.path,
+                            )
+                          : Image.file(File(pictureFile!.path)),
                     ),
                     SizedBox(
                         width: MediaQuery.of(context).size.width / 5,
-                        child: GreenSquareButton(onTap: () {}, label: 'Back'))
+                        child: GreenSquareButton(
+                            onTap: () {
+                              Navigator.pop(context, pictureFile!.path);
+                            },
+                            label: 'Back'))
                   ],
                 )
             ],
