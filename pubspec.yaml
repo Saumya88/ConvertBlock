@@ -25,6 +25,7 @@ dependencies:
   sqflite: ^2.2.8+4
   image_picker: ^0.8.7+5
   camera: ^0.10.5+2
+  geolocator: ^9.0.2
   
 
 dev_dependencies:

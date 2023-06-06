@@ -9,6 +9,7 @@ import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/camera.dart';
 import 'package:web_project/widgets/green_square_button.dart';
 import 'package:web_project/widgets/labeled_textfield.dart';
+import 'package:web_project/widgets/location.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -28,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   String _imagePath = '';
   String _locationPath = '';
-  void updateLccationPath(String locationPath) {
+  void updateLocationPath(String locationPath) {
     print('inside update path');
     setState(() => _locationPath = locationPath);
     print(_locationPath);
@@ -40,13 +41,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     print(_imagePath);
   }
 
-  void moveToNextPage(Widget widget) async {
+  void moveToCameraScreen(Widget widget) async {
     print('inside move to Next Page');
     final imgPath = await Navigator.push(
       context,
       CupertinoPageRoute(fullscreenDialog: true, builder: (context) => widget),
     );
     updateImagePath(imgPath);
+  }
+
+  void moveToLocationScreen(Widget widget) async {
+    print('inside move to Next Page');
+    final locPath = await Navigator.push(
+      context,
+      CupertinoPageRoute(fullscreenDialog: true, builder: (context) => widget),
+    );
+    updateLocationPath(locPath);
   }
 
   @override
@@ -78,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       InkWell(
                         onTap: () async {
                           await availableCameras().then((value) {
-                            moveToNextPage(CameraWidget(cameras: value));
+                            moveToCameraScreen(CameraWidget(cameras: value));
                           });
                         },
                         child: CircleAvatar(
@@ -93,7 +103,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SizedBox(width: 10.w),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          moveToLocationScreen(LocationWidget());
+                        },
                         child: CircleAvatar(
                           radius: 50.r,
                           backgroundColor: Colors.blueGrey,
