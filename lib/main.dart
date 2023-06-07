@@ -5,15 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'views/home_screen.dart';
 import 'package:web_project/views/profile_screen.dart';
 
-Future<void> backgroundHandler(RemoteMessage message) async {
-  print(message.data.toString());
-  print(message.notification!.title);
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
   runApp(const MyApp());
 }
 

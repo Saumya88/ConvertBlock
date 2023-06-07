@@ -2,9 +2,11 @@
 
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:web_project/database/database_sql.dart';
+import 'package:web_project/services/notification_services.dart';
 import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/widgets/camera.dart';
 import 'package:web_project/widgets/green_square_button.dart';
@@ -19,8 +21,22 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  NotificationServices notificationServices = NotificationServices();
   @override
   void initState() {
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+
+    notificationServices.getDeviceToken().then((value) {
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+    });
+
     super.initState();
   }
 
