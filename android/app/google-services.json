@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "976115202744",
+    "project_id": "push-notifications-saumya",
+    "storage_bucket": "push-notifications-saumya.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976115202744:android:a9723e25618564ccd0d24d",
+        "android_client_info": {
+          "package_name": "com.example.web_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976115202744-05f0ct84no1r6j584kqitqn8g9picnmp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOWp4tokTuRzGjtoyBlxtRU1CqXHz9Ric"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976115202744-05f0ct84no1r6j584kqitqn8g9picnmp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
