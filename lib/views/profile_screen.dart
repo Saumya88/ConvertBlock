@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_final_fields
 
 import 'package:camera/camera.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -179,7 +178,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onTap: () async {
                             var dbQuery =
                                 await DataBaseHelper.instance.queryDatabase();
-                            print(dbQuery);
+                            for (int i = 0; i < dbQuery.length; i++) {
+                              print(dbQuery[i]);
+                            }
+                          },
+                        ),
+                        GreenSquareButton(
+                          label: 'Refresh',
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        super.widget));
                           },
                         )
                       ],
