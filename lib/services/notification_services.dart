@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,14 @@ class NotificationServices {
 
   //function to get device token on which we will send the notifications
   Future<String> getDeviceToken() async {
-    String? token = await messaging.getToken();
+    String? token;
+    if (kIsWeb) {
+      token = await messaging.getToken(
+          vapidKey:
+              'BJ4tCfce07KxB1iSe35NsAtn9PM-NK2yHibkb659NWbprZIKONnQMrfNq5792cyh0P33AdOysfSYE5OD_5mJBaQ');
+    } else {
+      token = await messaging.getToken();
+    }
     return token!;
   }
 
@@ -175,5 +183,52 @@ class NotificationServices {
       badge: true,
       sound: true,
     );
+  }
+
+  void showFlutterNotification(RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    String? title = notification?.title.toString();
+    String? body = notification?.body.toString();
+    print('notification title');
+    print(notification?.title.toString());
+    AlertDialog(
+      title: Text(
+        title!,
+        style: TextStyle(
+          fontFamily: 'Poppins-Medium',
+          fontSize: 18.sp,
+          letterSpacing: -0.3,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      content: Text(
+        body!,
+        style: TextStyle(
+          fontFamily: 'Poppins-Light',
+          fontSize: 14.sp,
+          letterSpacing: -0.3,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          onPressed: () {},
+          child: Text(
+            'Okay',
+            style: TextStyle(
+              fontFamily: 'Poppins-Medium',
+              fontSize: 20.sp,
+              letterSpacing: -0.3,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  void showWebPushNotifications() {
+    print('inside showWebPushNotifications()');
+    FirebaseMessaging.onMessage.listen(showFlutterNotification);
   }
 }

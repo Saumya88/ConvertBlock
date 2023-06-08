@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields
 
 import 'package:camera/camera.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +25,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   NotificationServices notificationServices = NotificationServices();
   @override
   void initState() {
-    notificationServices.requestNotificationPermission();
-    notificationServices.forgroundMessage();
-    notificationServices.firebaseInit(context);
-    notificationServices.setupInteractMessage(context);
-    notificationServices.isTokenRefresh();
+    if (!kIsWeb) {
+      notificationServices.requestNotificationPermission();
+      notificationServices.forgroundMessage();
+      notificationServices.firebaseInit(context);
+      notificationServices.setupInteractMessage(context);
+      notificationServices.isTokenRefresh();
+    } else {
+      print('inside else');
+      notificationServices.showWebPushNotifications();
+    }
 
     notificationServices.getDeviceToken().then((value) {
       if (kDebugMode) {
