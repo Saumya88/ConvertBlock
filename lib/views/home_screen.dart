@@ -4,7 +4,9 @@ import 'package:web_project/utilities/colors.dart';
 import 'package:web_project/views/conversion_screen.dart';
 import 'package:web_project/views/crypto_list_path_provider_screen.dart';
 import 'package:web_project/views/crypto_list_shared_pref_screen.dart';
+import 'package:web_project/views/profile_screen.dart';
 import 'package:web_project/widgets/homescreen_button.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     int childAspectRatio = width > 499
         ? width > 900
-            ? 4
+            ? 5
             : 3
         : 2;
     return Scaffold(
@@ -53,29 +55,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   crossAxisCount: MediaQuery.of(context).orientation ==
                           Orientation.landscape
-                      ? 3
+                      ? 2
                       : 1,
                   children: [
                     SquareAppButton(
+                      label: 'Record Data',
+                      onTap: () {
+                        Navigator.pushNamed(context, '/home/record_data');
+                      },
+                    ),
+                    SquareAppButton(
                       label: 'Conversion Screen',
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ConversionScreen()));
+                        Navigator.pushNamed(context, '/home/conversion_screen');
                       },
                     ),
                     SquareAppButton(
                       label: 'Path Provider Cache Data',
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const CryptoListScreen()));
+                        Navigator.pushNamed(context, '/home/crypto_list_pp');
                       },
                     ),
                     SquareAppButton(
                       label: 'Shared Preferences Cache Data ',
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                const CryptoListSharedPref()));
+                        Navigator.pushNamed(context, '/home/crypto_list_sp');
                       },
                     ),
                   ],

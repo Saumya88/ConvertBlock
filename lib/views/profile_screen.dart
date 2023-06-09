@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 import 'package:web_project/database/database_sql.dart';
 import 'package:web_project/services/notification_services.dart';
 import 'package:web_project/utilities/colors.dart';
@@ -192,7 +193,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     builder: (BuildContext context) =>
                                         super.widget));
                           },
-                        )
+                        ),
+                        TextRenderer(
+                          text: 'webappbysaumya',
+                          child: Text('webappbysaumya'),
+                        ),
                       ],
                     ),
                   )

@@ -27,6 +27,7 @@ dependencies:
   flutter_local_notifications: ^14.1.1
   firebase_core: ^2.13.1
   app_settings: ^4.2.0
+  seo_renderer: ^0.6.0
   
 
 dev_dependencies:
